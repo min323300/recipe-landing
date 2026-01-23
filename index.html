@@ -657,6 +657,94 @@
             font-size: 16px;
         }
 
+        /* 히어로 배너 */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fff5f0 0%, #ffe8dc 100%);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .hero-content {
+            color: white;
+            max-width: 500px;
+        }
+
+        .hero-title {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            opacity: 0.95;
+            line-height: 1.6;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-cta {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 28px;
+            background: var(--warm-orange);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .hero-cta:hover {
+            background: var(--warm-red);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 220px;
+            }
+
+            .hero-overlay {
+                padding: 0 20px;
+                background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+            }
+
+            .hero-title {
+                font-size: 24px;
+            }
+
+            .hero-subtitle {
+                font-size: 14px;
+            }
+
+            .hero-cta {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+        }
+
         /* 푸터 */
         .footer {
             background: var(--coupang-dark);
@@ -748,6 +836,18 @@
             </div>
         </div>
     </header>
+
+    <!-- 히어로 배너 -->
+    <section class="hero">
+        <img src="images/1000.png" alt="맛있는 한식 요리" class="hero-image">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h2 class="hero-title">맛있는 집밥 레시피</h2>
+                <p class="hero-subtitle">영상으로 쉽게 배우고,<br>필요한 재료는 바로 구매하세요!</p>
+                <a href="#recipesContainer" class="hero-cta">🍳 레시피 보러가기</a>
+            </div>
+        </div>
+    </section>
 
     <!-- 카테고리 -->
     <section class="categories-section">
