@@ -1,266 +1,1155 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>레시피 영상 & 재료 구매 | BS컴퍼니</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>맛있는 레시피 - 요리부터 재료 구매까지</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coupang-blue: #0073e9;
+            --coupang-dark: #1a1a1a;
+            --warm-orange: #ff6b35;
+            --warm-red: #e63946;
+            --cream: #fff8f0;
+            --light-gray: #f5f5f5;
+            --text-dark: #2d2d2d;
+            --text-gray: #666;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.15);
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&display=swap" rel="stylesheet">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Noto Sans KR',sans-serif;background:#fafafa;color:#111}
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(180deg, var(--cream) 0%, #fff 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
 
-.top-banner{
-  background:#ff6b35;
-  color:#fff;
-  padding:12px;
-  text-align:center;
-  font-weight:600;
-}
+        /* 헤더 */
+        .header {
+            background: white;
+            box-shadow: var(--shadow-soft);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-.hero{
-  padding:60px 20px;
-  background:#fff7f2;
-  text-align:center;
-}
+        .header-top {
+            background: var(--coupang-dark);
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-.hero h1{
-  font-size:36px;
-  font-weight:800;
-}
+        .coupang-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+        }
 
-.hero span{color:#ff6b35}
+        .coupang-logo img {
+            height: 24px;
+        }
 
-.search-section{
-  background:#fff;
-  padding:30px 20px;
-  border-bottom:1px solid #eee;
-}
+        .coupang-logo-text {
+            background: var(--coupang-blue);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
 
-.search-box{
-  max-width:600px;
-  margin:0 auto 20px;
-  display:flex;
-  background:#f3f3f3;
-  border-radius:14px;
-  padding:10px 16px;
-}
+        .header-slogan {
+            color: #aaa;
+            font-size: 12px;
+        }
 
-.search-box input{
-  flex:1;
-  border:none;
-  background:none;
-  font-size:16px;
-  outline:none;
-}
+        .header-main {
+            padding: 16px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-.category-tabs{
-  display:flex;
-  justify-content:center;
-  gap:8px;
-  flex-wrap:wrap;
-}
+        .site-title {
+            text-align: center;
+            margin-bottom: 16px;
+        }
 
-.category-tab{
-  padding:8px 16px;
-  border-radius:20px;
-  border:1px solid #ddd;
-  background:#fff;
-  cursor:pointer;
-}
+        .site-title h1 {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--warm-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
 
-.category-tab.active{
-  background:#ff6b35;
-  color:#fff;
-  border-color:#ff6b35;
-}
+        .site-title p {
+            color: var(--text-gray);
+            font-size: 14px;
+            margin-top: 4px;
+        }
 
-.recipe-section{
-  max-width:1100px;
-  margin:40px auto;
-  padding:0 20px;
-}
+        /* 검색창 */
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
 
-.recipe-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:24px;
-}
+        .search-input {
+            width: 100%;
+            padding: 14px 50px 14px 20px;
+            border: 2px solid #eee;
+            border-radius: 50px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s;
+            background: var(--light-gray);
+        }
 
-.recipe-card{
-  background:#fff;
-  border-radius:16px;
-  box-shadow:0 4px 16px rgba(0,0,0,.08);
-  cursor:pointer;
-  transition:.3s;
-}
+        .search-input:focus {
+            outline: none;
+            border-color: var(--warm-orange);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(255,107,53,0.1);
+        }
 
-.recipe-card:hover{transform:translateY(-6px)}
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+            font-size: 20px;
+        }
 
-.card-thumbnail{
-  height:160px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:64px;
-  background:#ffe5d8;
-}
+        .search-clear {
+            position: absolute;
+            right: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ddd;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #666;
+        }
 
-.card-content{padding:16px}
+        .search-clear.show {
+            display: flex;
+        }
 
-.card-title{
-  font-size:18px;
-  font-weight:700;
-}
+        /* 카테고리 */
+        .categories-section {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-.card-desc{
-  font-size:14px;
-  color:#777;
-  margin-top:6px;
-}
+        .categories-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 10px 0;
+            scrollbar-width: none;
+        }
 
-.modal-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
+        .categories-scroll::-webkit-scrollbar {
+            display: none;
+        }
 
-.modal-overlay.show{display:flex}
+        .category-btn {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #eee;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 100px;
+        }
 
-.modal{
-  background:#fff;
-  border-radius:16px;
-  max-width:800px;
-  width:100%;
-  padding:24px;
-  position:relative;
-}
+        .category-btn:hover {
+            border-color: var(--warm-orange);
+            transform: translateY(-2px);
+        }
 
-.close-btn{
-  position:absolute;
-  top:16px;
-  right:16px;
-  cursor:pointer;
-}
-</style>
+        .category-btn.active {
+            background: var(--warm-orange);
+            border-color: var(--warm-orange);
+            color: white;
+        }
+
+        .category-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: var(--light-gray);
+        }
+
+        .category-btn.active .category-img {
+            border: 2px solid white;
+        }
+
+        .category-emoji {
+            font-size: 32px;
+            line-height: 1;
+        }
+
+        .category-name {
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* 레시피 그리드 */
+        .recipes-section {
+            padding: 0 20px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .recipe-count {
+            color: var(--text-gray);
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        /* 레시피 카드 */
+        .recipe-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .recipe-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            background: var(--light-gray);
+            overflow: hidden;
+        }
+
+        .recipe-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .recipe-card:hover .recipe-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .recipe-thumbnail-emoji {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px;
+            background: linear-gradient(135deg, #fff5f0 0%, #ffe8dc 100%);
+        }
+
+        .recipe-duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.75);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .recipe-info {
+            padding: 16px;
+        }
+
+        .recipe-category-tag {
+            display: inline-block;
+            background: rgba(255,107,53,0.1);
+            color: var(--warm-orange);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .recipe-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .recipe-desc {
+            color: var(--text-gray);
+            font-size: 14px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .recipe-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+        }
+
+        .recipe-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .recipe-meta-item.products {
+            color: var(--coupang-blue);
+            font-weight: 600;
+        }
+
+        /* 모달 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 95%;
+            max-width: 800px;
+            max-height: 90vh;
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.5);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(0,0,0,0.7);
+        }
+
+        .modal-content {
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* 영상 영역 */
+        .modal-video {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #000;
+        }
+
+        .modal-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .modal-video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            color: white;
+        }
+
+        /* 모달 정보 */
+        .modal-info {
+            padding: 24px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .modal-desc {
+            color: var(--text-gray);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* 링크 버튼들 */
+        .modal-links {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .modal-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .modal-link.youtube {
+            background: #ff0000;
+            color: white;
+        }
+
+        .modal-link.youtube:hover {
+            background: #cc0000;
+        }
+
+        .modal-link.blog {
+            background: var(--warm-orange);
+            color: white;
+        }
+
+        .modal-link.blog:hover {
+            background: #e55a2b;
+        }
+
+        /* 상품 영역 */
+        .products-section {
+            border-top: 1px solid #eee;
+            padding-top: 24px;
+        }
+
+        .products-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .products-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .products-badge {
+            background: var(--coupang-blue);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .product-card {
+            background: var(--light-gray);
+            border-radius: var(--radius-sm);
+            padding: 12px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            background: #e8f4ff;
+            transform: translateY(-2px);
+        }
+
+        .product-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: white;
+            margin-bottom: 10px;
+        }
+
+        .product-emoji {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .product-name {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .product-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--warm-red);
+        }
+
+        .product-shop {
+            font-size: 11px;
+            color: var(--coupang-blue);
+            margin-top: 4px;
+        }
+
+        /* 로딩 & 빈 상태 */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-gray);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #eee;
+            border-top-color: var(--warm-orange);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-gray);
+        }
+
+        .empty-state-emoji {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state-text {
+            font-size: 16px;
+        }
+
+        /* 푸터 */
+        .footer {
+            background: var(--coupang-dark);
+            color: #999;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .footer-text a {
+            color: #ccc;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .site-title h1 {
+                font-size: 22px;
+            }
+
+            .recipes-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 16px;
+            }
+
+            .modal-links {
+                flex-direction: column;
+            }
+
+            .modal-link {
+                justify-content: center;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .recipes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-btn {
+                min-width: 80px;
+                padding: 10px 14px;
+            }
+
+            .category-img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .category-emoji {
+                font-size: 26px;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header-top">
+            <a href="https://www.coupang.com" target="_blank" class="coupang-logo">
+                <span class="coupang-logo-text">쿠팡 파트너스</span>
+                <span>와 함께하는</span>
+            </a>
+            <span class="header-slogan">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</span>
+        </div>
+        <div class="header-main">
+            <div class="site-title">
+                <h1>🍳 맛있는 레시피</h1>
+                <p>영상으로 배우고, 글로 익히고, 재료는 바로 구매!</p>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-input" id="searchInput" placeholder="레시피 검색 (예: 김치찌개, 된장찌개...)">
+                <button class="search-clear" id="searchClear">✕</button>
+                <span class="search-icon">🔍</span>
+            </div>
+        </div>
+    </header>
 
-<div class="top-banner">
-🍳 영상으로 배우고, 글로 확인하고, 재료는 바로 구매하세요!
-</div>
+    <!-- 카테고리 -->
+    <section class="categories-section">
+        <div class="categories-scroll" id="categoriesContainer">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>카테고리 불러오는 중...</p>
+            </div>
+        </div>
+    </section>
 
-<section class="hero">
-  <h1>레시피 <span>영상</span>부터<br><span>재료 구매</span>까지 한번에</h1>
-</section>
+    <!-- 레시피 목록 -->
+    <section class="recipes-section">
+        <div class="section-header">
+            <h2 class="section-title">
+                📖 레시피 목록
+                <span class="recipe-count" id="recipeCount"></span>
+            </h2>
+        </div>
+        <div class="recipes-grid" id="recipesContainer">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>레시피 불러오는 중...</p>
+            </div>
+        </div>
+    </section>
 
-<section class="search-section">
-  <div class="search-box">
-    <input id="searchInput" placeholder="레시피 검색 (김치찌개, 불고기...)">
-  </div>
-  <div class="category-tabs" id="categoryTabs"></div>
-</section>
-
-<section class="recipe-section">
-  <div class="recipe-grid" id="recipeGrid"></div>
-</section>
-
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <button class="close-btn" onclick="closeModal()">✕</button>
-    <div id="modalContent"></div>
-  </div>
-</div>
-
-<script>
-const SHEET_ID = "1iq0rpcyhqRayAXIdr-D4NYqZQ_J8Qvf_GFF3vgVU6bw";
-const CATEGORY_SHEET = "카테고리";
-const RECIPE_SHEET = "레시피";
-
-let recipes = [];
-let categories = [];
-let selectedCategory = "전체";
-
-const recipeGrid = document.getElementById("recipeGrid");
-const categoryTabs = document.getElementById("categoryTabs");
-const searchInput = document.getElementById("searchInput");
-const modalOverlay = document.getElementById("modalOverlay");
-const modalContent = document.getElementById("modalContent");
-
-async function fetchSheet(sheet){
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${sheet}`;
-  const res = await fetch(url);
-  const text = await res.text();
-  const json = JSON.parse(text.substring(47).slice(0,-2));
-  const headers = json.table.cols.map(c=>c.label);
-  return json.table.rows.map(r=>{
-    const o={};
-    r.c.forEach((c,i)=>o[headers[i]]=c?.v||"");
-    return o;
-  });
-}
-
-function renderCategories(){
-  categoryTabs.innerHTML = ["전체", ...categories.map(c=>c["카테고리명"])].map(c=>`
-    <button class="category-tab ${selectedCategory===c?'active':''}" onclick="selectCategory('${c}')">${c}</button>
-  `).join("");
-}
-
-function renderRecipes(){
-  const q = searchInput.value.toLowerCase();
-  recipeGrid.innerHTML = recipes.filter(r=>{
-    const matchCat = selectedCategory==="전체" || r["카테고리"]===selectedCategory;
-    const matchText = r["제목"].toLowerCase().includes(q);
-    return matchCat && matchText;
-  }).map((r,i)=>`
-    <div class="recipe-card" onclick="openModal(${i})">
-      <div class="card-thumbnail">${r["이모지"]||"🍽️"}</div>
-      <div class="card-content">
-        <div class="card-title">${r["제목"]}</div>
-        <div class="card-desc">${r["설명"]||""}</div>
-      </div>
+    <!-- 모달 -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal" id="modal">
+        <button class="modal-close" id="modalClose">✕</button>
+        <div class="modal-content" id="modalContent">
+            <!-- 동적 콘텐츠 -->
+        </div>
     </div>
-  `).join("");
-}
 
-function selectCategory(c){
-  selectedCategory=c;
-  renderCategories();
-  renderRecipes();
-}
+    <!-- 푸터 -->
+    <footer class="footer">
+        <p class="footer-text">
+            © 2024 맛있는 레시피 | BS컴퍼니<br>
+            이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
+        </p>
+    </footer>
 
-function openModal(i){
-  const r = recipes[i];
-  modalContent.innerHTML = `
-    <h2>${r["제목"]}</h2>
-    <p>${r["설명"]||""}</p>
-  `;
-  modalOverlay.classList.add("show");
-}
+    <script>
+        // ============================================
+        // 📌 구글 시트 설정
+        // ============================================
+        const SHEET_ID = '여기에_구글시트_ID를_넣으세요';
+        
+        // 시트 이름 (정확히 일치해야 함)
+        const SHEET_NAMES = {
+            categories: '카테고리',
+            recipes: '레시피',
+            products: '상품'
+        };
 
-function closeModal(){
-  modalOverlay.classList.remove("show");
-}
+        // ============================================
+        // 📌 데이터 저장소
+        // ============================================
+        let categoriesData = [];
+        let recipesData = [];
+        let productsData = [];
+        let currentCategory = '전체';
+        let searchKeyword = '';
 
-searchInput.addEventListener("input",renderRecipes);
+        // ============================================
+        // 📌 구글 시트 데이터 가져오기
+        // ============================================
+        async function fetchSheetData(sheetName) {
+            const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
+            
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                
+                // JSON 파싱 (Google Sheets 응답 형식 처리)
+                const jsonText = text.substring(text.indexOf('(') + 1, text.lastIndexOf(')'));
+                const json = JSON.parse(jsonText);
+                
+                if (!json.table || !json.table.rows) {
+                    return [];
+                }
 
-Promise.all([
-  fetchSheet(CATEGORY_SHEET),
-  fetchSheet(RECIPE_SHEET)
-]).then(([c,r])=>{
-  categories=c;
-  recipes=r;
-  renderCategories();
-  renderRecipes();
-});
-</script>
+                const headers = json.table.cols.map(col => col.label || '');
+                const rows = json.table.rows.map(row => {
+                    const obj = {};
+                    row.c.forEach((cell, index) => {
+                        const header = headers[index];
+                        if (header) {
+                            obj[header] = cell ? (cell.v || '') : '';
+                        }
+                    });
+                    return obj;
+                });
 
+                return rows.filter(row => Object.values(row).some(v => v !== ''));
+            } catch (error) {
+                console.error(`시트 "${sheetName}" 로드 실패:`, error);
+                return [];
+            }
+        }
+
+        // ============================================
+        // 📌 모든 데이터 로드
+        // ============================================
+        async function loadAllData() {
+            try {
+                // 병렬로 모든 시트 데이터 로드
+                const [categories, recipes, products] = await Promise.all([
+                    fetchSheetData(SHEET_NAMES.categories),
+                    fetchSheetData(SHEET_NAMES.recipes),
+                    fetchSheetData(SHEET_NAMES.products)
+                ]);
+
+                categoriesData = categories;
+                recipesData = recipes;
+                productsData = products;
+
+                // 화면 렌더링
+                renderCategories();
+                renderRecipes();
+
+            } catch (error) {
+                console.error('데이터 로드 실패:', error);
+                showError();
+            }
+        }
+
+        // ============================================
+        // 📌 카테고리 렌더링
+        // ============================================
+        function renderCategories() {
+            const container = document.getElementById('categoriesContainer');
+            
+            // "전체" 버튼 + 시트 카테고리들
+            let html = `
+                <button class="category-btn active" data-category="전체">
+                    <span class="category-emoji">📋</span>
+                    <span class="category-name">전체</span>
+                </button>
+            `;
+
+            categoriesData.forEach(cat => {
+                const name = cat['카테고리명'] || cat['이름'] || '';
+                const imgUrl = cat['이미지URL'] || cat['이미지'] || '';
+                
+                if (!name) return;
+
+                const imgHtml = imgUrl 
+                    ? `<img src="${imgUrl}" alt="${name}" class="category-img" onerror="this.outerHTML='<span class=\\'category-emoji\\'>🍽️</span>'">`
+                    : `<span class="category-emoji">🍽️</span>`;
+
+                html += `
+                    <button class="category-btn" data-category="${name}">
+                        ${imgHtml}
+                        <span class="category-name">${name}</span>
+                    </button>
+                `;
+            });
+
+            container.innerHTML = html;
+
+            // 클릭 이벤트
+            container.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    container.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentCategory = btn.dataset.category;
+                    renderRecipes();
+                });
+            });
+        }
+
+        // ============================================
+        // 📌 레시피 렌더링
+        // ============================================
+        function renderRecipes() {
+            const container = document.getElementById('recipesContainer');
+            const countEl = document.getElementById('recipeCount');
+
+            // 필터링
+            let filtered = recipesData.filter(recipe => {
+                const title = recipe['제목'] || '';
+                const desc = recipe['설명'] || '';
+                const category = recipe['카테고리'] || '';
+
+                // 카테고리 필터
+                if (currentCategory !== '전체' && category !== currentCategory) {
+                    return false;
+                }
+
+                // 검색 필터
+                if (searchKeyword) {
+                    const keyword = searchKeyword.toLowerCase();
+                    return title.toLowerCase().includes(keyword) || 
+                           desc.toLowerCase().includes(keyword);
+                }
+
+                return true;
+            });
+
+            countEl.textContent = `(${filtered.length}개)`;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-emoji">🔍</div>
+                        <p class="empty-state-text">검색 결과가 없습니다.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            filtered.forEach(recipe => {
+                const id = recipe['ID'] || '';
+                const title = recipe['제목'] || '';
+                const desc = recipe['설명'] || '';
+                const category = recipe['카테고리'] || '';
+                const imgUrl = recipe['이미지URL'] || recipe['이미지'] || '';
+                const duration = recipe['영상길이'] || '';
+
+                // 해당 레시피의 상품 개수
+                const productCount = productsData.filter(p => p['레시피ID'] == id).length;
+
+                const thumbnailHtml = imgUrl
+                    ? `<img src="${imgUrl}" alt="${title}" onerror="this.parentElement.innerHTML='<div class=\\'recipe-thumbnail-emoji\\'>🍽️</div>'">`
+                    : `<div class="recipe-thumbnail-emoji">🍽️</div>`;
+
+                html += `
+                    <article class="recipe-card" data-id="${id}">
+                        <div class="recipe-thumbnail">
+                            ${thumbnailHtml}
+                            ${duration ? `<span class="recipe-duration">⏱️ ${duration}</span>` : ''}
+                        </div>
+                        <div class="recipe-info">
+                            <span class="recipe-category-tag">${category}</span>
+                            <h3 class="recipe-title">${title}</h3>
+                            <p class="recipe-desc">${desc}</p>
+                            <div class="recipe-meta">
+                                <span class="recipe-meta-item">📺 영상</span>
+                                <span class="recipe-meta-item">📝 블로그</span>
+                                ${productCount > 0 ? `<span class="recipe-meta-item products">🛒 재료 ${productCount}개</span>` : ''}
+                            </div>
+                        </div>
+                    </article>
+                `;
+            });
+
+            container.innerHTML = html;
+
+            // 카드 클릭 이벤트
+            container.querySelectorAll('.recipe-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const id = card.dataset.id;
+                    openModal(id);
+                });
+            });
+        }
+
+        // ============================================
+        // 📌 모달 열기
+        // ============================================
+        function openModal(recipeId) {
+            const recipe = recipesData.find(r => r['ID'] == recipeId);
+            if (!recipe) return;
+
+            const title = recipe['제목'] || '';
+            const desc = recipe['설명'] || '';
+            const youtubeUrl = recipe['유튜브링크'] || recipe['유튜브'] || '';
+            const blogUrl = recipe['블로그링크'] || recipe['블로그'] || recipe['티스토리링크'] || '';
+
+            // 유튜브 ID 추출
+            let youtubeId = '';
+            if (youtubeUrl) {
+                const match = youtubeUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s]+)/);
+                if (match) youtubeId = match[1];
+            }
+
+            // 해당 레시피의 상품들
+            const products = productsData.filter(p => p['레시피ID'] == recipeId);
+
+            let productsHtml = '';
+            if (products.length > 0) {
+                productsHtml = `
+                    <div class="products-section">
+                        <div class="products-header">
+                            <span class="products-title">🛒 필요한 재료</span>
+                            <span class="products-badge">${products.length}개 상품</span>
+                        </div>
+                        <div class="products-grid">
+                            ${products.map(p => {
+                                const name = p['상품명'] || '';
+                                const price = p['가격'] || '';
+                                const imgUrl = p['이미지URL'] || p['이미지'] || '';
+                                const shop = p['쇼핑몰'] || '쿠팡';
+                                const link = p['쇼핑링크'] || p['링크'] || '#';
+
+                                const imgHtml = imgUrl
+                                    ? `<img src="${imgUrl}" alt="${name}" class="product-img" onerror="this.outerHTML='<div class=\\'product-emoji\\'>🛍️</div>'">`
+                                    : `<div class="product-emoji">🛍️</div>`;
+
+                                return `
+                                    <a href="${link}" target="_blank" class="product-card">
+                                        ${imgHtml}
+                                        <div class="product-name">${name}</div>
+                                        ${price ? `<div class="product-price">${price}</div>` : ''}
+                                        <div class="product-shop">${shop}</div>
+                                    </a>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = `
+                <div class="modal-video">
+                    ${youtubeId 
+                        ? `<iframe src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allowfullscreen></iframe>`
+                        : `<div class="modal-video-placeholder">📺 영상 준비 중</div>`
+                    }
+                </div>
+                <div class="modal-info">
+                    <h2 class="modal-title">${title}</h2>
+                    <p class="modal-desc">${desc}</p>
+                    <div class="modal-links">
+                        ${youtubeUrl ? `<a href="${youtubeUrl}" target="_blank" class="modal-link youtube">▶️ 유튜브에서 보기</a>` : ''}
+                        ${blogUrl ? `<a href="${blogUrl}" target="_blank" class="modal-link blog">📝 블로그 글 보기</a>` : ''}
+                    </div>
+                    ${productsHtml}
+                </div>
+            `;
+
+            document.getElementById('modalOverlay').classList.add('show');
+            document.getElementById('modal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // ============================================
+        // 📌 모달 닫기
+        // ============================================
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('show');
+            document.getElementById('modal').classList.remove('show');
+            document.body.style.overflow = '';
+
+            // 유튜브 영상 정지
+            const iframe = document.querySelector('.modal-video iframe');
+            if (iframe) {
+                iframe.src = iframe.src;
+            }
+        }
+
+        // ============================================
+        // 📌 에러 표시
+        // ============================================
+        function showError() {
+            document.getElementById('categoriesContainer').innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-emoji">⚠️</div>
+                    <p class="empty-state-text">데이터를 불러올 수 없습니다.<br>구글 시트 설정을 확인해주세요.</p>
+                </div>
+            `;
+            document.getElementById('recipesContainer').innerHTML = '';
+        }
+
+        // ============================================
+        // 📌 이벤트 리스너
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // 데이터 로드
+            loadAllData();
+
+            // 검색
+            const searchInput = document.getElementById('searchInput');
+            const searchClear = document.getElementById('searchClear');
+
+            searchInput.addEventListener('input', (e) => {
+                searchKeyword = e.target.value.trim();
+                searchClear.classList.toggle('show', searchKeyword.length > 0);
+                renderRecipes();
+            });
+
+            searchClear.addEventListener('click', () => {
+                searchInput.value = '';
+                searchKeyword = '';
+                searchClear.classList.remove('show');
+                renderRecipes();
+            });
+
+            // 모달 닫기
+            document.getElementById('modalClose').addEventListener('click', closeModal);
+            document.getElementById('modalOverlay').addEventListener('click', closeModal);
+
+            // ESC 키로 모달 닫기
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModal();
+            });
+        });
+    </script>
 </body>
 </html>
