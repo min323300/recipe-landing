@@ -1,975 +1,113 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>레시피 영상 & 재료 구매 | BS컴퍼니</title>
-  <meta name="description" content="영상으로 요리 배우고, 블로그 글로 확인하고, 필요한 재료는 바로 구매하세요">
-  
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍🍳</text></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    body {
-      font-family: 'Noto Sans KR', sans-serif;
-      background-color: #FAFAFA;
-      color: #1A1A1A;
-      line-height: 1.6;
-    }
-    
-    /* 로딩 */
-    .loading {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 80px 20px;
-      gap: 16px;
-    }
-    
-    .loading-spinner {
-      width: 50px;
-      height: 50px;
-      border: 4px solid #FFE8DD;
-      border-top-color: #FF6B35;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    
-    /* 에러 메시지 */
-    .error-message {
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 30px;
-      background: #FFF5F5;
-      border: 1px solid #FFE0E0;
-      border-radius: 16px;
-      text-align: center;
-    }
-    
-    .error-message h3 {
-      color: #E53E3E;
-      margin-bottom: 12px;
-    }
-    
-    .error-message code {
-      display: block;
-      background: #FFF;
-      padding: 12px;
-      border-radius: 8px;
-      margin: 12px 0;
-      font-size: 12px;
-      word-break: break-all;
-    }
-    
-    /* 상단 배너 */
-    .top-banner {
-      background: linear-gradient(90deg, #FF6B35 0%, #FF8C5A 100%);
-      color: white;
-      padding: 14px 20px;
-      text-align: center;
-      font-size: 14px;
-      font-weight: 600;
-    }
-    
-    /* 히어로 */
-    .hero {
-      position: relative;
-      background: linear-gradient(180deg, #FFF9F5 0%, #FFF 100%);
-      padding: 50px 20px 70px;
-      overflow: hidden;
-    }
-    
-    .hero-bg {
-      position: absolute;
-      top: 0; right: 0;
-      width: 50%; height: 100%;
-      background: radial-gradient(circle at 70% 30%, rgba(255,107,53,0.08) 0%, transparent 60%);
-    }
-    
-    .partner-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background-color: white;
-      padding: 8px 14px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 600;
-      color: #B8860B;
-      border: 1px solid #F0E6D3;
-      margin-bottom: 20px;
-    }
-    
-    .hero-content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      max-width: 900px;
-      margin: 0 auto;
-      gap: 60px;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .hero-image {
-      position: relative;
-      width: 200px;
-      height: 200px;
-    }
-    
-    .chef-circle {
-      width: 160px;
-      height: 160px;
-      background-color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 20px 50px rgba(255,107,53,0.2);
-      margin: 20px auto;
-      font-size: 80px;
-    }
-    
-    .bubble {
-      position: absolute;
-      font-size: 26px;
-      animation: float 2.5s ease-in-out infinite;
-    }
-    
-    .bubble-1 { top: 0; right: 10px; }
-    .bubble-2 { bottom: 10px; right: 0; animation-delay: 0.5s; }
-    .bubble-3 { bottom: 20px; left: 0; animation-delay: 1s; }
-    
-    .hero-text { text-align: left; max-width: 400px; }
-    
-    .hero-title {
-      font-size: clamp(28px, 5vw, 40px);
-      font-weight: 800;
-      line-height: 1.3;
-      margin-bottom: 16px;
-    }
-    
-    .highlight { color: #FF6B35; }
-    
-    .hero-subtitle {
-      font-size: 16px;
-      color: #666;
-      line-height: 1.7;
-    }
-    
-    /* 검색 */
-    .search-section {
-      background-color: white;
-      padding: 40px 20px 30px;
-      border-bottom: 1px solid #F0F0F0;
-    }
-    
-    .search-container { max-width: 700px; margin: 0 auto; }
-    
-    .search-title {
-      font-size: 18px;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    
-    .search-box {
-      display: flex;
-      align-items: center;
-      background-color: #F5F5F5;
-      border-radius: 16px;
-      padding: 4px 8px 4px 20px;
-      margin-bottom: 20px;
-    }
-    
-    .search-icon { font-size: 18px; margin-right: 12px; }
-    
-    .search-input {
-      flex: 1;
-      padding: 16px 0;
-      font-size: 16px;
-      border: none;
-      outline: none;
-      background: transparent;
-      font-family: 'Noto Sans KR', sans-serif;
-    }
-    
-    .clear-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: none;
-      background-color: #E0E0E0;
-      cursor: pointer;
-      font-size: 14px;
-      color: #666;
-      display: none;
-    }
-    
-    .clear-btn.show { display: block; }
-    
-    /* 카테고리 */
-    .category-tabs {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    
-    .category-tab {
-      padding: 10px 18px;
-      border-radius: 25px;
-      border: 1px solid #E0E0E0;
-      background-color: white;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: 'Noto Sans KR', sans-serif;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    
-    .category-tab:hover { border-color: #FF6B35; }
-    
-    .category-tab.active {
-      background-color: #FF6B35;
-      border-color: #FF6B35;
-      color: white;
-    }
-    
-    /* 레시피 목록 */
-    .recipe-section {
-      padding: 40px 20px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    
-    .result-info {
-      font-size: 14px;
-      color: #888;
-      margin-bottom: 24px;
-    }
-    
-    .recipe-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 24px;
-    }
-    
-    .recipe-card {
-      background-color: white;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      animation: fadeInUp 0.5s ease-out forwards;
-      opacity: 0;
-    }
-    
-    .recipe-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-    }
-    
-    .card-thumbnail {
-      position: relative;
-      height: 160px;
-      background: linear-gradient(135deg, #FFE8DD 0%, #FFD4BC 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .card-emoji { font-size: 70px; }
-    
-    .card-duration {
-      position: absolute;
-      bottom: 12px;
-      right: 12px;
-      background-color: rgba(0,0,0,0.75);
-      color: white;
-      padding: 4px 10px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 500;
-    }
-    
-    .play-btn {
-      position: absolute;
-      width: 50px;
-      height: 50px;
-      background-color: rgba(255,255,255,0.95);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      color: #FF6B35;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-    }
-    
-    .card-content { padding: 20px; }
-    
-    .card-category {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 600;
-      color: #FF6B35;
-      background-color: #FFF0EB;
-      padding: 4px 10px;
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
-    
-    .card-title {
-      font-size: 17px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    
-    .card-desc {
-      font-size: 13px;
-      color: #888;
-      margin-bottom: 14px;
-    }
-    
-    .card-meta {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    
-    .meta-item {
-      font-size: 12px;
-      color: #666;
-      background-color: #F5F5F5;
-      padding: 5px 10px;
-      border-radius: 8px;
-    }
-    
-    /* 결과 없음 */
-    .no-result {
-      text-align: center;
-      padding: 60px 20px;
-      display: none;
-    }
-    
-    .no-result.show { display: block; }
-    
-    .no-result-emoji {
-      font-size: 60px;
-      margin-bottom: 16px;
-    }
-    
-    /* 모달 */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background-color: rgba(0,0,0,0.6);
-      z-index: 1000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    
-    .modal-overlay.show { display: flex; }
-    
-    .modal {
-      position: relative;
-      background-color: white;
-      border-radius: 24px;
-      width: 100%;
-      max-width: 800px;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 30px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
-    
-    .close-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: none;
-      background-color: #F5F5F5;
-      font-size: 18px;
-      cursor: pointer;
-    }
-    
-    .close-btn:hover { background-color: #E0E0E0; }
-    
-    .detail-title {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    
-    .detail-emoji { font-size: 32px; }
-    
-    .detail-desc {
-      font-size: 15px;
-      color: #888;
-      margin-bottom: 20px;
-    }
-    
-    .video-wrapper {
-      position: relative;
-      padding-bottom: 56.25%;
-      background-color: #000;
-      border-radius: 16px;
-      overflow: hidden;
-      margin-bottom: 28px;
-    }
-    
-    .video-wrapper iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-    }
-    
-    .section-label {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 14px;
-      color: #333;
-    }
-    
-    .blog-link {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 18px 20px;
-      background-color: #F8F9FA;
-      border-radius: 14px;
-      text-decoration: none;
-      color: inherit;
-      border: 1px solid #E8E8E8;
-      margin-bottom: 28px;
-      transition: background-color 0.2s;
-    }
-    
-    .blog-link:hover { background-color: #F0F0F0; }
-    
-    .blog-icon { font-size: 28px; }
-    .blog-info { flex: 1; }
-    .blog-title { font-weight: 600; font-size: 15px; display: block; }
-    .blog-hint { font-size: 12px; color: #999; }
-    .blog-arrow { font-size: 20px; color: #CCC; }
-    
-    .ingredients-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    
-    .ingredient-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 16px;
-      background-color: #FFFBF8;
-      border-radius: 12px;
-      text-decoration: none;
-      color: inherit;
-      border: 1px solid #FFE8DD;
-      transition: all 0.2s;
-    }
-    
-    .ingredient-item:hover {
-      background-color: #FFF0E6;
-      border-color: #FF6B35;
-    }
-    
-    .ingredient-emoji {
-      font-size: 24px;
-      width: 44px;
-      height: 44px;
-      background-color: white;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .ingredient-info { flex: 1; }
-    .ingredient-name { font-size: 14px; font-weight: 600; display: block; }
-    .ingredient-price { font-size: 15px; font-weight: 700; color: #FF6B35; }
-    
-    .shop-badge {
-      font-size: 11px;
-      font-weight: 600;
-      color: #666;
-      background-color: #F0F0F0;
-      padding: 5px 10px;
-      border-radius: 8px;
-    }
-    
-    .affiliate-note {
-      margin-top: 16px;
-      font-size: 11px;
-      color: #BBB;
-      text-align: center;
-    }
-    
-    .no-products {
-      padding: 20px;
-      text-align: center;
-      color: #999;
-      background: #F9F9F9;
-      border-radius: 12px;
-    }
-    
-    /* 푸터 */
-    .footer {
-      background-color: #1A1A1A;
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-    }
-    
-    .footer-logo {
-      font-size: 20px;
-      font-weight: 700;
-      color: #FF6B35;
-      margin-bottom: 12px;
-    }
-    
-    .footer-text {
-      font-size: 12px;
-      color: #888;
-      line-height: 1.8;
-      margin-bottom: 12px;
-    }
-    
-    .footer-copyright {
-      font-size: 11px;
-      color: #555;
-    }
-    
-    @media (max-width: 768px) {
-      .hero-content { gap: 30px; }
-      .hero-text { text-align: center; }
-      .modal { padding: 20px; border-radius: 16px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>레시피 영상 & 재료 구매 | BS컴퍼니</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+body{margin:0;font-family:'Noto Sans KR',sans-serif;background:#fafafa}
+.top-banner{background:#ff6b35;color:#fff;padding:14px;text-align:center;font-weight:600}
+
+.hero{background:linear-gradient(180deg,#fff9f5,#fff);padding:60px 20px;text-align:center}
+.hero-img{
+  width:200px;height:200px;border-radius:50%;
+  overflow:hidden;margin:0 auto 20px;
+  box-shadow:0 20px 40px rgba(255,107,53,.3)
+}
+.hero-img img{width:100%;height:100%;object-fit:cover}
+.hero-title{font-size:36px;font-weight:800}
+.highlight{color:#ff6b35}
+
+.recipe-section{max-width:1100px;margin:40px auto;padding:0 20px}
+.recipe-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+
+.recipe-card{
+  background:#fff;border-radius:20px;overflow:hidden;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+  cursor:pointer;transition:.3s
+}
+.recipe-card:hover{transform:translateY(-6px)}
+
+.card-thumbnail{height:170px;position:relative;background:#eee}
+.card-thumbnail img{
+  width:100%;height:100%;object-fit:cover
+}
+.play-btn{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:52px;height:52px;border-radius:50%;
+  background:#fff;display:flex;
+  align-items:center;justify-content:center;
+  font-size:20px;color:#ff6b35
+}
+
+.card-content{padding:20px}
+.card-category{font-size:12px;color:#ff6b35;font-weight:700}
+.card-title{font-size:18px;font-weight:800;margin:6px 0}
+.card-desc{font-size:14px;color:#777}
+
+</style>
 </head>
+
 <body>
-  <!-- 상단 배너 -->
-  <div class="top-banner">
-    🍳 영상으로 배우고, 글로 확인하고, 재료는 바로 구매하세요!
+
+<div class="top-banner">🍳 영상으로 배우고, 글로 확인하고, 재료는 바로 구매하세요!</div>
+
+<!-- 히어로 -->
+<section class="hero">
+  <div class="hero-img">
+    <img src="./images/hero.png" alt="메인 이미지">
   </div>
+  <h1 class="hero-title">
+    레시피 <span class="highlight">영상</span>부터<br>
+    <span class="highlight">재료 구매</span>까지 한번에
+  </h1>
+</section>
 
-  <!-- 히어로 -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="partner-badge"><span>🏆</span> 공식 쿠팡파트너스</div>
-    <div class="hero-content">
-      <div class="hero-image">
-        <div class="chef-circle">👨‍🍳</div>
-        <div class="bubble bubble-1">📺</div>
-        <div class="bubble bubble-2">📝</div>
-        <div class="bubble bubble-3">🛒</div>
-      </div>
-      <div class="hero-text">
-        <h1 class="hero-title">
-          레시피 <span class="highlight">영상</span>부터<br>
-          <span class="highlight">재료 구매</span>까지 한번에
-        </h1>
-        <p class="hero-subtitle">
-          영상으로 요리 배우고 • 블로그 글로 확인하고<br>
-          필요한 재료는 바로 구매하세요
-        </p>
-      </div>
-    </div>
-  </section>
+<!-- 레시피 -->
+<section class="recipe-section">
+  <div class="recipe-grid" id="recipeGrid"></div>
+</section>
 
-  <!-- 검색 -->
-  <section class="search-section">
-    <div class="search-container">
-      <h2 class="search-title">🔍 어떤 요리를 찾으세요?</h2>
-      <div class="search-box">
-        <span class="search-icon">🔎</span>
-        <input type="text" id="searchInput" class="search-input" placeholder="레시피 검색 (예: 김치찌개, 불고기, 떡볶이...)">
-        <button id="clearBtn" class="clear-btn">✕</button>
-      </div>
-      <div class="category-tabs" id="categoryTabs"></div>
-    </div>
-  </section>
+<script>
+const SHEET_ID="1iq0rpcyhqRayAXIdr-D4NYqZQ_J8Qvf_GFF3vgVU6bw";
+const RECIPE_SHEET="레시피";
 
-  <!-- 레시피 목록 -->
-  <section class="recipe-section">
-    <div id="loadingArea" class="loading">
-      <div class="loading-spinner"></div>
-      <p>레시피를 불러오는 중...</p>
-    </div>
-    
-    <div id="errorArea"></div>
-    
-    <div id="contentArea" style="display: none;">
-      <div class="result-info" id="resultInfo">총 <strong>0</strong>개의 레시피</div>
-      <div class="recipe-grid" id="recipeGrid"></div>
-      <div class="no-result" id="noResult">
-        <div class="no-result-emoji">🤔</div>
-        <p>검색 결과가 없습니다</p>
-      </div>
-    </div>
-  </section>
+async function fetchSheet(){
+ const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${RECIPE_SHEET}`;
+ const res=await fetch(url);
+ const text=await res.text();
+ const json=JSON.parse(text.substring(47).slice(0,-2));
+ const headers=json.table.cols.map(c=>c.label);
+ return json.table.rows.map(r=>{
+   const o={};
+   r.c.forEach((c,i)=>o[headers[i]]=c?c.v:"");
+   return o;
+ });
+}
 
-  <!-- 모달 -->
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal" id="modal">
-      <button class="close-btn" id="closeBtn">✕</button>
-      <div id="modalContent"></div>
+async function load(){
+ const recipes=await fetchSheet();
+ document.getElementById("recipeGrid").innerHTML=recipes.map(r=>`
+  <div class="recipe-card">
+    <div class="card-thumbnail">
+      <img src="./images/${r['이미지']}" onerror="this.src='./images/placeholder.png'">
+      <div class="play-btn">▶</div>
+    </div>
+    <div class="card-content">
+      <div class="card-category">${r['카테고리']||''}</div>
+      <div class="card-title">${r['제목']}</div>
+      <div class="card-desc">${r['설명']||''}</div>
     </div>
   </div>
+ `).join("");
+}
 
-  <!-- 푸터 -->
-  <footer class="footer">
-    <p class="footer-logo">BS컴퍼니</p>
-    <p class="footer-text">
-      이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br>
-      이에 따른 일정액의 수수료를 제공받습니다.
-    </p>
-    <p class="footer-copyright">© 2025 BS Company</p>
-  </footer>
+load();
+</script>
 
-  <script>
-    // ============================================
-    // 🔧 설정 - 여기만 수정하세요!
-    // ============================================
-    
-    // 구글 시트 ID (시트 URL에서 복사)
-    // 예: https://docs.google.com/spreadsheets/d/여기가ID/edit
-    const SHEET_ID = "1iq0rpcyhqRayAXIdr-D4NYqZQ_J8Qvf_GFF3vgVU6bw";
-    
-    // 시트 이름들
-    const CATEGORY_SHEET = '카테고리';
-    const RECIPE_SHEET = '레시피';
-    const PRODUCT_SHEET = '상품';
-    
-    // ============================================
-    // 데이터 저장
-    // ============================================
-    let categories = [];
-    let recipes = [];
-    let products = [];
-    let selectedCategory = '전체';
-    let searchQuery = '';
-    
-    // DOM
-    const loadingArea = document.getElementById('loadingArea');
-    const errorArea = document.getElementById('errorArea');
-    const contentArea = document.getElementById('contentArea');
-    const searchInput = document.getElementById('searchInput');
-    const clearBtn = document.getElementById('clearBtn');
-    const categoryTabs = document.getElementById('categoryTabs');
-    const recipeGrid = document.getElementById('recipeGrid');
-    const resultInfo = document.getElementById('resultInfo');
-    const noResult = document.getElementById('noResult');
-    const modalOverlay = document.getElementById('modalOverlay');
-    const modalContent = document.getElementById('modalContent');
-    const closeBtn = document.getElementById('closeBtn');
-    
-    // ============================================
-    // 구글 시트에서 데이터 가져오기
-    // ============================================
-    async function fetchSheetData(sheetName) {
-      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
-      
-      const response = await fetch(url);
-      const text = await response.text();
-      
-      // Google의 JSON 응답 파싱
-      const json = JSON.parse(text.substring(47).slice(0, -2));
-      
-      if (!json.table || !json.table.rows) {
-        return [];
-      }
-      
-      const headers = json.table.cols.map(col => col.label || '');
-      const rows = json.table.rows.map(row => {
-        const obj = {};
-        row.c.forEach((cell, i) => {
-          obj[headers[i]] = cell ? (cell.v || '') : '';
-        });
-        return obj;
-      });
-      
-      return rows;
-    }
-    
-    async function loadAllData() {
-      try {
-        loadingArea.style.display = 'flex';
-        contentArea.style.display = 'none';
-        errorArea.innerHTML = '';
-        
-        // 병렬로 모든 시트 데이터 가져오기
-        const [catData, recipeData, productData] = await Promise.all([
-          fetchSheetData(CATEGORY_SHEET),
-          fetchSheetData(RECIPE_SHEET),
-          fetchSheetData(PRODUCT_SHEET)
-        ]);
-        
-        categories = catData;
-        recipes = recipeData;
-        products = productData;
-        
-        loadingArea.style.display = 'none';
-        contentArea.style.display = 'block';
-        
-        renderCategories();
-        renderRecipes();
-        
-      } catch (error) {
-        console.error('데이터 로드 실패:', error);
-        loadingArea.style.display = 'none';
-        errorArea.innerHTML = `
-          <div class="error-message">
-            <h3>⚠️ 데이터를 불러올 수 없습니다</h3>
-            <p>구글 시트 설정을 확인해주세요:</p>
-            <ol style="text-align: left; margin: 16px 0;">
-              <li>시트 ID가 올바른지 확인</li>
-              <li>시트가 "웹에 게시" 되었는지 확인</li>
-              <li>시트 이름이 정확한지 확인 (카테고리, 레시피, 상품)</li>
-            </ol>
-            <code>현재 설정된 시트 ID: ${SHEET_ID}</code>
-            <p style="margin-top: 16px;">
-              <button onclick="loadAllData()" style="padding: 10px 20px; background: #FF6B35; color: white; border: none; border-radius: 8px; cursor: pointer;">
-                다시 시도
-              </button>
-            </p>
-          </div>
-        `;
-      }
-    }
-    
-    // ============================================
-    // 렌더링
-    // ============================================
-    function renderCategories() {
-      const categoryNames = ['전체', ...categories.map(c => c['카테고리명'] || c['이름'] || '')].filter(Boolean);
-      
-      categoryTabs.innerHTML = categoryNames.map(cat => {
-        const catInfo = categories.find(c => (c['카테고리명'] || c['이름']) === cat);
-        const icon = catInfo ? (catInfo['아이콘'] || '') : '';
-        return `
-          <button class="category-tab ${selectedCategory === cat ? 'active' : ''}" data-category="${cat}">
-            ${icon} ${cat}
-          </button>
-        `;
-      }).join('');
-    }
-    
-    function getFilteredRecipes() {
-      return recipes.filter(recipe => {
-        const title = recipe['제목'] || recipe['레시피명'] || '';
-        const desc = recipe['설명'] || '';
-        const category = recipe['카테고리'] || '';
-        
-        const matchesSearch = title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                              desc.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesCategory = selectedCategory === '전체' || category === selectedCategory;
-        
-        return matchesSearch && matchesCategory;
-      });
-    }
-    
-    function renderRecipes() {
-      const filtered = getFilteredRecipes();
-      
-      resultInfo.innerHTML = `총 <strong>${filtered.length}</strong>개의 레시피`;
-      
-      if (filtered.length === 0) {
-        recipeGrid.innerHTML = '';
-        noResult.classList.add('show');
-        return;
-      }
-      
-      noResult.classList.remove('show');
-      
-      recipeGrid.innerHTML = filtered.map((recipe, index) => {
-        const id = recipe['ID'] || recipe['id'] || index;
-        const title = recipe['제목'] || recipe['레시피명'] || '제목 없음';
-        const desc = recipe['설명'] || '';
-        const category = recipe['카테고리'] || '';
-        const emoji = recipe['이모지'] || recipe['썸네일'] || '🍽️';
-        const duration = recipe['영상길이'] || recipe['시간'] || '';
-        const recipeProducts = products.filter(p => (p['레시피ID'] || p['레시피_ID']) == id);
-        
-        return `
-          <div class="recipe-card" data-id="${id}" style="animation-delay: ${index * 0.08}s">
-            <div class="card-thumbnail">
-              <span class="card-emoji">${emoji}</span>
-              ${duration ? `<div class="card-duration">${duration}</div>` : ''}
-              <div class="play-btn">▶</div>
-            </div>
-            <div class="card-content">
-              <span class="card-category">${category}</span>
-              <h3 class="card-title">${title}</h3>
-              <p class="card-desc">${desc}</p>
-              <div class="card-meta">
-                <span class="meta-item">📺 영상</span>
-                <span class="meta-item">📝 글</span>
-                <span class="meta-item">🛒 재료 ${recipeProducts.length}개</span>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-    
-    function openModal(recipeId) {
-      const recipe = recipes.find(r => (r['ID'] || r['id']) == recipeId);
-      if (!recipe) return;
-      
-      const title = recipe['제목'] || recipe['레시피명'] || '';
-      const desc = recipe['설명'] || '';
-      const emoji = recipe['이모지'] || recipe['썸네일'] || '🍽️';
-      const youtubeUrl = recipe['유튜브링크'] || recipe['유튜브'] || '';
-      const blogUrl = recipe['블로그링크'] || recipe['티스토리'] || recipe['블로그'] || '';
-      const blogTitle = recipe['블로그제목'] || `${title} 레시피 (글로 보기)`;
-      
-      // 유튜브 ID 추출
-      let youtubeId = '';
-      if (youtubeUrl) {
-        const match = youtubeUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s]+)/);
-        youtubeId = match ? match[1] : youtubeUrl;
-      }
-      
-      // 해당 레시피의 상품들
-      const recipeProducts = products.filter(p => (p['레시피ID'] || p['레시피_ID']) == recipeId);
-      
-      modalContent.innerHTML = `
-        <h2 class="detail-title">
-          <span class="detail-emoji">${emoji}</span>
-          ${title}
-        </h2>
-        <p class="detail-desc">${desc}</p>
-        
-        ${youtubeId ? `
-          <div class="video-wrapper">
-            <iframe 
-              src="https://www.youtube.com/embed/${youtubeId}" 
-              title="${title}"
-              frameborder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen>
-            </iframe>
-          </div>
-        ` : '<p style="padding:40px; text-align:center; background:#f5f5f5; border-radius:12px;">영상이 등록되지 않았습니다</p>'}
-        
-        <h3 class="section-label">📝 글로 보는 레시피</h3>
-        ${blogUrl ? `
-          <a href="${blogUrl}" target="_blank" rel="noopener noreferrer" class="blog-link">
-            <div class="blog-icon">📄</div>
-            <div class="blog-info">
-              <span class="blog-title">${blogTitle}</span>
-              <span class="blog-hint">클릭하면 블로그/티스토리로 이동</span>
-            </div>
-            <span class="blog-arrow">→</span>
-          </a>
-        ` : '<p class="no-products">블로그 글이 등록되지 않았습니다</p>'}
-        
-        <h3 class="section-label">🛒 필요한 재료 바로 구매</h3>
-        ${recipeProducts.length > 0 ? `
-          <div class="ingredients-list">
-            ${recipeProducts.map(p => `
-              <a href="${p['쇼핑링크'] || p['링크'] || '#'}" target="_blank" rel="noopener noreferrer" class="ingredient-item">
-                <span class="ingredient-emoji">${p['이모지'] || '🛒'}</span>
-                <div class="ingredient-info">
-                  <span class="ingredient-name">${p['상품명'] || ''}</span>
-                  <span class="ingredient-price">${p['가격'] || ''}</span>
-                </div>
-                <span class="shop-badge">${p['쇼핑몰'] || '쿠팡'}</span>
-              </a>
-            `).join('')}
-          </div>
-          <p class="affiliate-note">* 이 링크를 통해 구매시 소정의 수수료를 받습니다</p>
-        ` : '<p class="no-products">등록된 상품이 없습니다</p>'}
-      `;
-      
-      modalOverlay.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    }
-    
-    function closeModal() {
-      modalOverlay.classList.remove('show');
-      document.body.style.overflow = '';
-      modalContent.innerHTML = '';
-    }
-    
-    // ============================================
-    // 이벤트
-    // ============================================
-    searchInput.addEventListener('input', (e) => {
-      searchQuery = e.target.value;
-      clearBtn.classList.toggle('show', searchQuery.length > 0);
-      renderRecipes();
-    });
-    
-    clearBtn.addEventListener('click', () => {
-      searchQuery = '';
-      searchInput.value = '';
-      clearBtn.classList.remove('show');
-      renderRecipes();
-    });
-    
-    categoryTabs.addEventListener('click', (e) => {
-      if (e.target.classList.contains('category-tab')) {
-        selectedCategory = e.target.dataset.category;
-        renderCategories();
-        renderRecipes();
-      }
-    });
-    
-    recipeGrid.addEventListener('click', (e) => {
-      const card = e.target.closest('.recipe-card');
-      if (card) openModal(card.dataset.id);
-    });
-    
-    closeBtn.addEventListener('click', closeModal);
-    modalOverlay.addEventListener('click', (e) => {
-      if (e.target === modalOverlay) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
-    
-    // ============================================
-    // 시작
-    // ============================================
-    loadAllData();
-  </script>
 </body>
 </html>
