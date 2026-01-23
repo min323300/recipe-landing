@@ -796,7 +796,7 @@
         // ============================================
         // 📌 구글 시트 설정
         // ============================================
-        const SHEET_ID = '여기에_구글시트_ID를_넣으세요';
+        const SHEET_ID = '1iq0rpcyhqRayAXIdr-D4NYqZQ_J8Qvf_GFF3vgVU6bw';
         
         // 시트 이름 (정확히 일치해야 함)
         const SHEET_NAMES = {
@@ -894,12 +894,14 @@
             categoriesData.forEach(cat => {
                 const name = cat['카테고리명'] || cat['이름'] || '';
                 const imgUrl = cat['이미지URL'] || cat['이미지'] || '';
+                const icon = cat['아이콘'] || cat['이모지'] || '🍽️';
                 
                 if (!name) return;
 
+                // 이미지URL이 있으면 이미지, 없으면 아이콘(이모지) 사용
                 const imgHtml = imgUrl 
-                    ? `<img src="${imgUrl}" alt="${name}" class="category-img" onerror="this.outerHTML='<span class=\\'category-emoji\\'>🍽️</span>'">`
-                    : `<span class="category-emoji">🍽️</span>`;
+                    ? `<img src="${imgUrl}" alt="${name}" class="category-img" onerror="this.outerHTML='<span class=\\'category-emoji\\'>${icon}</span>'">`
+                    : `<span class="category-emoji">${icon}</span>`;
 
                 html += `
                     <button class="category-btn" data-category="${name}">
@@ -969,14 +971,16 @@
                 const desc = recipe['설명'] || '';
                 const category = recipe['카테고리'] || '';
                 const imgUrl = recipe['이미지URL'] || recipe['이미지'] || '';
+                const emoji = recipe['이모지'] || '🍽️';
                 const duration = recipe['영상길이'] || '';
 
                 // 해당 레시피의 상품 개수
                 const productCount = productsData.filter(p => p['레시피ID'] == id).length;
 
+                // 이미지URL이 있으면 이미지, 없으면 이모지 사용
                 const thumbnailHtml = imgUrl
-                    ? `<img src="${imgUrl}" alt="${title}" onerror="this.parentElement.innerHTML='<div class=\\'recipe-thumbnail-emoji\\'>🍽️</div>'">`
-                    : `<div class="recipe-thumbnail-emoji">🍽️</div>`;
+                    ? `<img src="${imgUrl}" alt="${title}" onerror="this.parentElement.innerHTML='<div class=\\'recipe-thumbnail-emoji\\'>${emoji}</div>'">`
+                    : `<div class="recipe-thumbnail-emoji">${emoji}</div>`;
 
                 html += `
                     <article class="recipe-card" data-id="${id}">
@@ -1044,12 +1048,14 @@
                                 const name = p['상품명'] || '';
                                 const price = p['가격'] || '';
                                 const imgUrl = p['이미지URL'] || p['이미지'] || '';
+                                const emoji = p['이모지'] || '🛍️';
                                 const shop = p['쇼핑몰'] || '쿠팡';
                                 const link = p['쇼핑링크'] || p['링크'] || '#';
 
+                                // 이미지URL이 있으면 이미지, 없으면 이모지 사용
                                 const imgHtml = imgUrl
-                                    ? `<img src="${imgUrl}" alt="${name}" class="product-img" onerror="this.outerHTML='<div class=\\'product-emoji\\'>🛍️</div>'">`
-                                    : `<div class="product-emoji">🛍️</div>`;
+                                    ? `<img src="${imgUrl}" alt="${name}" class="product-img" onerror="this.outerHTML='<div class=\\'product-emoji\\'>${emoji}</div>'">`
+                                    : `<div class="product-emoji">${emoji}</div>`;
 
                                 return `
                                     <a href="${link}" target="_blank" class="product-card">
