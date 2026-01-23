@@ -5,108 +5,261 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>레시피 영상 & 재료 구매 | BS컴퍼니</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
-body{margin:0;font-family:'Noto Sans KR',sans-serif;background:#fafafa}
-.top-banner{background:#ff6b35;color:#fff;padding:14px;text-align:center;font-weight:600}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',sans-serif;background:#fafafa;color:#111}
 
-.hero{background:linear-gradient(180deg,#fff9f5,#fff);padding:60px 20px;text-align:center}
-.hero-img{
-  width:200px;height:200px;border-radius:50%;
-  overflow:hidden;margin:0 auto 20px;
-  box-shadow:0 20px 40px rgba(255,107,53,.3)
+.top-banner{
+  background:#ff6b35;
+  color:#fff;
+  padding:12px;
+  text-align:center;
+  font-weight:600;
 }
-.hero-img img{width:100%;height:100%;object-fit:cover}
-.hero-title{font-size:36px;font-weight:800}
-.highlight{color:#ff6b35}
 
-.recipe-section{max-width:1100px;margin:40px auto;padding:0 20px}
-.recipe-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+.hero{
+  padding:60px 20px;
+  background:#fff7f2;
+  text-align:center;
+}
+
+.hero h1{
+  font-size:36px;
+  font-weight:800;
+}
+
+.hero span{color:#ff6b35}
+
+.search-section{
+  background:#fff;
+  padding:30px 20px;
+  border-bottom:1px solid #eee;
+}
+
+.search-box{
+  max-width:600px;
+  margin:0 auto 20px;
+  display:flex;
+  background:#f3f3f3;
+  border-radius:14px;
+  padding:10px 16px;
+}
+
+.search-box input{
+  flex:1;
+  border:none;
+  background:none;
+  font-size:16px;
+  outline:none;
+}
+
+.category-tabs{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.category-tab{
+  padding:8px 16px;
+  border-radius:20px;
+  border:1px solid #ddd;
+  background:#fff;
+  cursor:pointer;
+}
+
+.category-tab.active{
+  background:#ff6b35;
+  color:#fff;
+  border-color:#ff6b35;
+}
+
+.recipe-section{
+  max-width:1100px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+.recipe-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:24px;
+}
 
 .recipe-card{
-  background:#fff;border-radius:20px;overflow:hidden;
-  box-shadow:0 4px 20px rgba(0,0,0,.08);
-  cursor:pointer;transition:.3s
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 4px 16px rgba(0,0,0,.08);
+  cursor:pointer;
+  transition:.3s;
 }
+
 .recipe-card:hover{transform:translateY(-6px)}
 
-.card-thumbnail{height:170px;position:relative;background:#eee}
-.card-thumbnail img{
-  width:100%;height:100%;object-fit:cover
-}
-.play-btn{
-  position:absolute;top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  width:52px;height:52px;border-radius:50%;
-  background:#fff;display:flex;
-  align-items:center;justify-content:center;
-  font-size:20px;color:#ff6b35
+.card-thumbnail{
+  height:160px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:64px;
+  background:#ffe5d8;
 }
 
-.card-content{padding:20px}
-.card-category{font-size:12px;color:#ff6b35;font-weight:700}
-.card-title{font-size:18px;font-weight:800;margin:6px 0}
-.card-desc{font-size:14px;color:#777}
+.card-content{padding:16px}
 
+.card-title{
+  font-size:18px;
+  font-weight:700;
+}
+
+.card-desc{
+  font-size:14px;
+  color:#777;
+  margin-top:6px;
+}
+
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-overlay.show{display:flex}
+
+.modal{
+  background:#fff;
+  border-radius:16px;
+  max-width:800px;
+  width:100%;
+  padding:24px;
+  position:relative;
+}
+
+.close-btn{
+  position:absolute;
+  top:16px;
+  right:16px;
+  cursor:pointer;
+}
 </style>
 </head>
 
 <body>
 
-<div class="top-banner">🍳 영상으로 배우고, 글로 확인하고, 재료는 바로 구매하세요!</div>
+<div class="top-banner">
+🍳 영상으로 배우고, 글로 확인하고, 재료는 바로 구매하세요!
+</div>
 
-<!-- 히어로 -->
 <section class="hero">
-  <div class="hero-img">
-    <img src="./images/hero.png" alt="메인 이미지">
-  </div>
-  <h1 class="hero-title">
-    레시피 <span class="highlight">영상</span>부터<br>
-    <span class="highlight">재료 구매</span>까지 한번에
-  </h1>
+  <h1>레시피 <span>영상</span>부터<br><span>재료 구매</span>까지 한번에</h1>
 </section>
 
-<!-- 레시피 -->
+<section class="search-section">
+  <div class="search-box">
+    <input id="searchInput" placeholder="레시피 검색 (김치찌개, 불고기...)">
+  </div>
+  <div class="category-tabs" id="categoryTabs"></div>
+</section>
+
 <section class="recipe-section">
   <div class="recipe-grid" id="recipeGrid"></div>
 </section>
 
-<script>
-const SHEET_ID="1iq0rpcyhqRayAXIdr-D4NYqZQ_J8Qvf_GFF3vgVU6bw";
-const RECIPE_SHEET="레시피";
-
-async function fetchSheet(){
- const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${RECIPE_SHEET}`;
- const res=await fetch(url);
- const text=await res.text();
- const json=JSON.parse(text.substring(47).slice(0,-2));
- const headers=json.table.cols.map(c=>c.label);
- return json.table.rows.map(r=>{
-   const o={};
-   r.c.forEach((c,i)=>o[headers[i]]=c?c.v:"");
-   return o;
- });
-}
-
-async function load(){
- const recipes=await fetchSheet();
- document.getElementById("recipeGrid").innerHTML=recipes.map(r=>`
-  <div class="recipe-card">
-    <div class="card-thumbnail">
-      <img src="./images/${r['이미지']}" onerror="this.src='./images/placeholder.png'">
-      <div class="play-btn">▶</div>
-    </div>
-    <div class="card-content">
-      <div class="card-category">${r['카테고리']||''}</div>
-      <div class="card-title">${r['제목']}</div>
-      <div class="card-desc">${r['설명']||''}</div>
-    </div>
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="close-btn" onclick="closeModal()">✕</button>
+    <div id="modalContent"></div>
   </div>
- `).join("");
+</div>
+
+<script>
+const SHEET_ID = "1iq0rpcyhqRayAXIdr-D4NYqZQ_J8Qvf_GFF3vgVU6bw";
+const CATEGORY_SHEET = "카테고리";
+const RECIPE_SHEET = "레시피";
+
+let recipes = [];
+let categories = [];
+let selectedCategory = "전체";
+
+const recipeGrid = document.getElementById("recipeGrid");
+const categoryTabs = document.getElementById("categoryTabs");
+const searchInput = document.getElementById("searchInput");
+const modalOverlay = document.getElementById("modalOverlay");
+const modalContent = document.getElementById("modalContent");
+
+async function fetchSheet(sheet){
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${sheet}`;
+  const res = await fetch(url);
+  const text = await res.text();
+  const json = JSON.parse(text.substring(47).slice(0,-2));
+  const headers = json.table.cols.map(c=>c.label);
+  return json.table.rows.map(r=>{
+    const o={};
+    r.c.forEach((c,i)=>o[headers[i]]=c?.v||"");
+    return o;
+  });
 }
 
-load();
+function renderCategories(){
+  categoryTabs.innerHTML = ["전체", ...categories.map(c=>c["카테고리명"])].map(c=>`
+    <button class="category-tab ${selectedCategory===c?'active':''}" onclick="selectCategory('${c}')">${c}</button>
+  `).join("");
+}
+
+function renderRecipes(){
+  const q = searchInput.value.toLowerCase();
+  recipeGrid.innerHTML = recipes.filter(r=>{
+    const matchCat = selectedCategory==="전체" || r["카테고리"]===selectedCategory;
+    const matchText = r["제목"].toLowerCase().includes(q);
+    return matchCat && matchText;
+  }).map((r,i)=>`
+    <div class="recipe-card" onclick="openModal(${i})">
+      <div class="card-thumbnail">${r["이모지"]||"🍽️"}</div>
+      <div class="card-content">
+        <div class="card-title">${r["제목"]}</div>
+        <div class="card-desc">${r["설명"]||""}</div>
+      </div>
+    </div>
+  `).join("");
+}
+
+function selectCategory(c){
+  selectedCategory=c;
+  renderCategories();
+  renderRecipes();
+}
+
+function openModal(i){
+  const r = recipes[i];
+  modalContent.innerHTML = `
+    <h2>${r["제목"]}</h2>
+    <p>${r["설명"]||""}</p>
+  `;
+  modalOverlay.classList.add("show");
+}
+
+function closeModal(){
+  modalOverlay.classList.remove("show");
+}
+
+searchInput.addEventListener("input",renderRecipes);
+
+Promise.all([
+  fetchSheet(CATEGORY_SHEET),
+  fetchSheet(RECIPE_SHEET)
+]).then(([c,r])=>{
+  categories=c;
+  recipes=r;
+  renderCategories();
+  renderRecipes();
+});
 </script>
 
 </body>
