@@ -915,7 +915,7 @@
         let searchKeyword = '';
 
         // ============================================
-        // 📌 구글 시트 데이터 가져오기 (수정됨!)
+        // 📌 구글 시트 데이터 가져오기 (자동 헤더 감지!)
         // ============================================
         async function fetchSheetData(sheetName) {
             const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
@@ -932,14 +932,33 @@
                     return [];
                 }
 
-                // ✅ 수정: 첫 번째 행을 헤더로 사용
+                // ✅ 첫 번째 행이 헤더인지 데이터인지 자동 판단
                 const firstRow = json.table.rows[0];
-                const headers = firstRow.c.map(cell => cell ? (cell.v || '').toString().trim() : '');
+                const firstCellValue = firstRow.c[0] ? firstRow.c[0].v : '';
                 
-                console.log(`[${sheetName}] 헤더:`, headers);
+                // 첫 번째 셀이 문자열이고 숫자가 아니면 헤더로 판단
+                // 예: "카테고리명", "ID", "제목" 등은 헤더
+                // 예: 1, 2, 3 등 숫자는 데이터
+                const isFirstRowHeader = typeof firstCellValue === 'string' && 
+                                         isNaN(Number(firstCellValue)) &&
+                                         firstCellValue !== '';
 
-                // 나머지 행을 데이터로 처리
-                const rows = json.table.rows.slice(1).map(row => {
+                let headers, dataRows;
+                
+                if (isFirstRowHeader) {
+                    // 첫 번째 행이 헤더인 경우
+                    headers = firstRow.c.map(cell => cell ? (cell.v || '').toString().trim() : '');
+                    dataRows = json.table.rows.slice(1);
+                    console.log(`[${sheetName}] 첫 번째 행을 헤더로 사용:`, headers.filter(h => h));
+                } else {
+                    // cols.label을 헤더로 사용 (첫 번째 행은 데이터)
+                    headers = json.table.cols.map(col => (col.label || '').trim());
+                    dataRows = json.table.rows;
+                    console.log(`[${sheetName}] cols.label을 헤더로 사용:`, headers.filter(h => h));
+                }
+
+                // 데이터 행 처리
+                const rows = dataRows.map(row => {
                     const obj = {};
                     if (row.c) {
                         row.c.forEach((cell, index) => {
