@@ -1159,10 +1159,10 @@
             const youtubeUrl = recipe['유튜브링크'] || recipe['유튜브'] || '';
             const blogUrl = recipe['블로그링크'] || recipe['블로그'] || recipe['티스토리링크'] || '';
 
-            // 유튜브 ID 추출
+            // 유튜브 ID 추출 (쇼츠도 지원!)
             let youtubeId = '';
             if (youtubeUrl) {
-                const match = youtubeUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s]+)/);
+                const match = youtubeUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&\s?]+)/);
                 if (match) youtubeId = match[1];
             }
 
