@@ -839,7 +839,7 @@
 
     <!-- 히어로 배너 -->
     <section class="hero">
-        <img src="images/1000.png" alt="맛있는 한식 요리" class="hero-image">
+        <img src="images/1000.png" alt="맛있는 한식 요리" class="hero-image" onerror="this.style.display='none'">
         <div class="hero-overlay">
             <div class="hero-content">
                 <h2 class="hero-title">맛있는 집밥 레시피</h2>
@@ -915,7 +915,7 @@
         let searchKeyword = '';
 
         // ============================================
-        // 📌 구글 시트 데이터 가져오기
+        // 📌 구글 시트 데이터 가져오기 (수정됨!)
         // ============================================
         async function fetchSheetData(sheetName) {
             const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
@@ -928,23 +928,34 @@
                 const jsonText = text.substring(text.indexOf('(') + 1, text.lastIndexOf(')'));
                 const json = JSON.parse(jsonText);
                 
-                if (!json.table || !json.table.rows) {
+                if (!json.table || !json.table.rows || json.table.rows.length === 0) {
                     return [];
                 }
 
-                const headers = json.table.cols.map(col => col.label || '');
-                const rows = json.table.rows.map(row => {
+                // ✅ 수정: 첫 번째 행을 헤더로 사용
+                const firstRow = json.table.rows[0];
+                const headers = firstRow.c.map(cell => cell ? (cell.v || '').toString().trim() : '');
+                
+                console.log(`[${sheetName}] 헤더:`, headers);
+
+                // 나머지 행을 데이터로 처리
+                const rows = json.table.rows.slice(1).map(row => {
                     const obj = {};
-                    row.c.forEach((cell, index) => {
-                        const header = headers[index];
-                        if (header) {
-                            obj[header] = cell ? (cell.v || '') : '';
-                        }
-                    });
+                    if (row.c) {
+                        row.c.forEach((cell, index) => {
+                            const header = headers[index];
+                            if (header) {
+                                obj[header] = cell ? (cell.v || '') : '';
+                            }
+                        });
+                    }
                     return obj;
                 });
 
-                return rows.filter(row => Object.values(row).some(v => v !== ''));
+                const filteredRows = rows.filter(row => Object.values(row).some(v => v !== ''));
+                console.log(`[${sheetName}] 데이터 ${filteredRows.length}개 로드됨`);
+                
+                return filteredRows;
             } catch (error) {
                 console.error(`시트 "${sheetName}" 로드 실패:`, error);
                 return [];
@@ -966,6 +977,10 @@
                 categoriesData = categories;
                 recipesData = recipes;
                 productsData = products;
+
+                console.log('카테고리 데이터:', categoriesData);
+                console.log('레시피 데이터:', recipesData);
+                console.log('상품 데이터:', productsData);
 
                 // 화면 렌더링
                 renderCategories();
