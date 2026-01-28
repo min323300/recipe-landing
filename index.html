@@ -106,6 +106,97 @@
             margin-top: 4px;
         }
 
+        /* ============================================ */
+        /* 📊 통계 표시 영역 (새로 추가) */
+        /* ============================================ */
+        .stats-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #fff5f0 0%, #ffe8dc 100%);
+            border-bottom: 1px solid #ffe0d0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-dark);
+        }
+
+        .stat-item .stat-icon {
+            font-size: 16px;
+        }
+
+        .stat-item .stat-value {
+            font-weight: 700;
+            color: var(--warm-orange);
+        }
+
+        .stat-divider {
+            width: 1px;
+            height: 16px;
+            background: #ddd;
+        }
+
+        .popular-recipes {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .popular-recipes .popular-label {
+            font-weight: 600;
+            color: var(--warm-red);
+        }
+
+        .popular-recipes .popular-list {
+            display: flex;
+            gap: 8px;
+        }
+
+        .popular-recipes .popular-item {
+            background: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-dark);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .popular-recipes .popular-item:hover {
+            background: var(--warm-orange);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .stats-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .stat-divider {
+                display: none;
+            }
+
+            .popular-recipes {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .popular-recipes .popular-list {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
         /* 검색창 */
         .search-container {
             max-width: 500px;
@@ -318,6 +409,22 @@
             border-radius: 4px;
             font-size: 12px;
             font-weight: 600;
+        }
+
+        /* 클릭수 배지 (새로 추가) */
+        .recipe-clicks-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255,107,53,0.9);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .recipe-info {
@@ -824,6 +931,31 @@
             </a>
             <span class="header-slogan">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</span>
         </div>
+        
+        <!-- 📊 통계 표시 영역 (새로 추가) -->
+        <div class="stats-bar" id="statsBar">
+            <div class="stat-item">
+                <span class="stat-icon">👥</span>
+                <span>오늘 방문</span>
+                <span class="stat-value" id="todayVisits">-</span>
+                <span>명</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-icon">📊</span>
+                <span>총 방문</span>
+                <span class="stat-value" id="totalVisits">-</span>
+                <span>명</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="popular-recipes">
+                <span class="popular-label">🔥 인기 레시피</span>
+                <div class="popular-list" id="popularList">
+                    <span class="popular-item">로딩 중...</span>
+                </div>
+            </div>
+        </div>
+        
         <div class="header-main">
             <div class="site-title">
                 <h1>🍳 레딧플러스</h1>
@@ -906,6 +1038,11 @@
         };
 
         // ============================================
+        // 📌 통계 API URL (Apps Script 웹 앱)
+        // ============================================
+        const STATS_API_URL = 'https://script.google.com/macros/s/AKfycbz8l1X1vLTV7YmW_LbkYNmJSwcgv9aG_9JWQAHAwCarJtppbLZuYBpYP8JI1GRi26c/exec';
+
+        // ============================================
         // 📌 데이터 저장소
         // ============================================
         let categoriesData = [];
@@ -913,6 +1050,73 @@
         let productsData = [];
         let currentCategory = '전체';
         let searchKeyword = '';
+
+        // ============================================
+        // 📌 통계 기능 (새로 추가)
+        // ============================================
+        
+        // 방문 기록
+        async function recordVisit() {
+            try {
+                await fetch(`${STATS_API_URL}?action=visit`, { mode: 'no-cors' });
+                console.log('방문 기록 완료');
+            } catch (error) {
+                console.error('방문 기록 실패:', error);
+            }
+        }
+
+        // 레시피 클릭 기록
+        async function recordClick(recipeId) {
+            try {
+                await fetch(`${STATS_API_URL}?action=click&id=${recipeId}`, { mode: 'no-cors' });
+                console.log('클릭 기록 완료:', recipeId);
+            } catch (error) {
+                console.error('클릭 기록 실패:', error);
+            }
+        }
+
+        // 통계 가져오기
+        async function loadStats() {
+            try {
+                const response = await fetch(`${STATS_API_URL}?action=getStats`);
+                const data = await response.json();
+                
+                // 방문자 수 표시
+                document.getElementById('todayVisits').textContent = (data.todayVisits || 0).toLocaleString();
+                document.getElementById('totalVisits').textContent = (data.totalVisits || 0).toLocaleString();
+                
+                // 인기 레시피 표시
+                const popularList = document.getElementById('popularList');
+                if (data.topRecipes && data.topRecipes.length > 0) {
+                    const hasClicks = data.topRecipes.some(r => r.clicks > 0);
+                    if (hasClicks) {
+                        popularList.innerHTML = data.topRecipes
+                            .filter(r => r.clicks > 0)
+                            .map(r => `<span class="popular-item" data-id="${r.id}">${r.title}</span>`)
+                            .join('');
+                        
+                        // 인기 레시피 클릭 이벤트
+                        popularList.querySelectorAll('.popular-item').forEach(item => {
+                            item.addEventListener('click', () => {
+                                const id = item.dataset.id;
+                                openModal(id);
+                            });
+                        });
+                    } else {
+                        popularList.innerHTML = '<span class="popular-item">아직 데이터 수집 중</span>';
+                    }
+                } else {
+                    popularList.innerHTML = '<span class="popular-item">아직 데이터 수집 중</span>';
+                }
+                
+                console.log('통계 로드 완료:', data);
+            } catch (error) {
+                console.error('통계 로드 실패:', error);
+                document.getElementById('todayVisits').textContent = '-';
+                document.getElementById('totalVisits').textContent = '-';
+                document.getElementById('popularList').innerHTML = '<span class="popular-item">로딩 실패</span>';
+            }
+        }
 
         // ============================================
         // 📌 구글 시트 데이터 가져오기 (자동 헤더 감지!)
@@ -936,9 +1140,6 @@
                 const firstRow = json.table.rows[0];
                 const firstCellValue = firstRow.c[0] ? firstRow.c[0].v : '';
                 
-                // 첫 번째 셀이 문자열이고 숫자가 아니면 헤더로 판단
-                // 예: "카테고리명", "ID", "제목" 등은 헤더
-                // 예: 1, 2, 3 등 숫자는 데이터
                 const isFirstRowHeader = typeof firstCellValue === 'string' && 
                                          isNaN(Number(firstCellValue)) &&
                                          firstCellValue !== '';
@@ -946,18 +1147,15 @@
                 let headers, dataRows;
                 
                 if (isFirstRowHeader) {
-                    // 첫 번째 행이 헤더인 경우
                     headers = firstRow.c.map(cell => cell ? (cell.v || '').toString().trim() : '');
                     dataRows = json.table.rows.slice(1);
                     console.log(`[${sheetName}] 첫 번째 행을 헤더로 사용:`, headers.filter(h => h));
                 } else {
-                    // cols.label을 헤더로 사용 (첫 번째 행은 데이터)
                     headers = json.table.cols.map(col => (col.label || '').trim());
                     dataRows = json.table.rows;
                     console.log(`[${sheetName}] cols.label을 헤더로 사용:`, headers.filter(h => h));
                 }
 
-                // 데이터 행 처리
                 const rows = dataRows.map(row => {
                     const obj = {};
                     if (row.c) {
@@ -986,7 +1184,6 @@
         // ============================================
         async function loadAllData() {
             try {
-                // 병렬로 모든 시트 데이터 로드
                 const [categories, recipes, products] = await Promise.all([
                     fetchSheetData(SHEET_NAMES.categories),
                     fetchSheetData(SHEET_NAMES.recipes),
@@ -1001,7 +1198,6 @@
                 console.log('레시피 데이터:', recipesData);
                 console.log('상품 데이터:', productsData);
 
-                // 화면 렌더링
                 renderCategories();
                 renderRecipes();
 
@@ -1017,7 +1213,6 @@
         function renderCategories() {
             const container = document.getElementById('categoriesContainer');
             
-            // "전체" 버튼 + 시트 카테고리들
             let html = `
                 <button class="category-btn active" data-category="전체">
                     <span class="category-emoji">📋</span>
@@ -1032,7 +1227,6 @@
                 
                 if (!name) return;
 
-                // 이미지URL이 있으면 이미지, 없으면 아이콘(이모지) 사용
                 const imgHtml = imgUrl 
                     ? `<img src="${imgUrl}" alt="${name}" class="category-img" onerror="this.outerHTML='<span class=\\'category-emoji\\'>${icon}</span>'">`
                     : `<span class="category-emoji">${icon}</span>`;
@@ -1047,7 +1241,6 @@
 
             container.innerHTML = html;
 
-            // 클릭 이벤트
             container.querySelectorAll('.category-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     container.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
@@ -1065,18 +1258,15 @@
             const container = document.getElementById('recipesContainer');
             const countEl = document.getElementById('recipeCount');
 
-            // 필터링
             let filtered = recipesData.filter(recipe => {
                 const title = recipe['제목'] || '';
                 const desc = recipe['설명'] || '';
                 const category = recipe['카테고리'] || '';
 
-                // 카테고리 필터
                 if (currentCategory !== '전체' && category !== currentCategory) {
                     return false;
                 }
 
-                // 검색 필터
                 if (searchKeyword) {
                     const keyword = searchKeyword.toLowerCase();
                     return title.toLowerCase().includes(keyword) || 
@@ -1107,19 +1297,24 @@
                 const imgUrl = recipe['이미지URL'] || recipe['이미지'] || '';
                 const emoji = recipe['이모지'] || '🍽️';
                 const duration = recipe['영상길이'] || '';
+                const clicks = recipe['클릭수'] || 0;
 
-                // 해당 레시피의 상품 개수
                 const productCount = productsData.filter(p => p['레시피ID'] == id).length;
 
-                // 이미지URL이 있으면 이미지, 없으면 이모지 사용
                 const thumbnailHtml = imgUrl
                     ? `<img src="${imgUrl}" alt="${title}" onerror="this.parentElement.innerHTML='<div class=\\'recipe-thumbnail-emoji\\'>${emoji}</div>'">`
                     : `<div class="recipe-thumbnail-emoji">${emoji}</div>`;
+
+                // 클릭수 배지 (10 이상일 때만 표시)
+                const clicksBadgeHtml = clicks >= 10 
+                    ? `<span class="recipe-clicks-badge">👀 ${clicks}</span>` 
+                    : '';
 
                 html += `
                     <article class="recipe-card" data-id="${id}">
                         <div class="recipe-thumbnail">
                             ${thumbnailHtml}
+                            ${clicksBadgeHtml}
                             ${duration ? `<span class="recipe-duration">⏱️ ${duration}</span>` : ''}
                         </div>
                         <div class="recipe-info">
@@ -1138,10 +1333,10 @@
 
             container.innerHTML = html;
 
-            // 카드 클릭 이벤트
             container.querySelectorAll('.recipe-card').forEach(card => {
                 card.addEventListener('click', () => {
                     const id = card.dataset.id;
+                    recordClick(id); // 클릭 기록
                     openModal(id);
                 });
             });
@@ -1159,14 +1354,12 @@
             const youtubeUrl = recipe['유튜브링크'] || recipe['유튜브'] || '';
             const blogUrl = recipe['블로그링크'] || recipe['블로그'] || recipe['티스토리링크'] || '';
 
-            // 유튜브 ID 추출 (쇼츠도 지원!)
             let youtubeId = '';
             if (youtubeUrl) {
                 const match = youtubeUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&\s?]+)/);
                 if (match) youtubeId = match[1];
             }
 
-            // 해당 레시피의 상품들
             const products = productsData.filter(p => p['레시피ID'] == recipeId);
 
             let productsHtml = '';
@@ -1186,7 +1379,6 @@
                                 const shop = p['쇼핑몰'] || '쿠팡';
                                 const link = p['쇼핑링크'] || p['링크'] || '#';
 
-                                // 이미지URL이 있으면 이미지, 없으면 이모지 사용
                                 const imgHtml = imgUrl
                                     ? `<img src="${imgUrl}" alt="${name}" class="product-img" onerror="this.outerHTML='<div class=\\'product-emoji\\'>${emoji}</div>'">`
                                     : `<div class="product-emoji">${emoji}</div>`;
@@ -1237,7 +1429,6 @@
             document.getElementById('modal').classList.remove('show');
             document.body.style.overflow = '';
 
-            // 유튜브 영상 정지
             const iframe = document.querySelector('.modal-video iframe');
             if (iframe) {
                 iframe.src = iframe.src;
@@ -1261,6 +1452,10 @@
         // 📌 이벤트 리스너
         // ============================================
         document.addEventListener('DOMContentLoaded', () => {
+            // 방문 기록 & 통계 로드
+            recordVisit();
+            loadStats();
+            
             // 데이터 로드
             loadAllData();
 
