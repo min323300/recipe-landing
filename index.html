@@ -107,7 +107,7 @@
         }
 
         /* ============================================ */
-        /* 📊 통계 표시 영역 (새로 추가) */
+        /* 📊 통계 표시 영역 */
         /* ============================================ */
         .stats-bar {
             display: flex;
@@ -118,6 +118,13 @@
             background: linear-gradient(135deg, #fff5f0 0%, #ffe8dc 100%);
             border-bottom: 1px solid #ffe0d0;
             flex-wrap: wrap;
+        }
+
+        /* 방문자 통계 가로 묶음 */
+        .stats-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
 
         .stat-item {
@@ -176,24 +183,118 @@
             color: white;
         }
 
+        /* ============================================ */
+        /* 📱 모바일 컴팩트 스타일 (핵심 수정!) */
+        /* ============================================ */
         @media (max-width: 768px) {
+            /* 쿠팡 헤더 컴팩트 */
+            .header-top {
+                padding: 6px 12px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 4px;
+            }
+
+            .coupang-logo {
+                font-size: 14px;
+            }
+
+            .coupang-logo-text {
+                padding: 2px 8px;
+                font-size: 12px;
+            }
+
+            .header-slogan {
+                font-size: 10px;
+                text-align: center;
+                width: 100%;
+            }
+
+            /* 통계 바 컴팩트 - 한 줄로! */
             .stats-bar {
-                flex-direction: column;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+                padding: 8px 12px;
+            }
+
+            .stats-row {
                 gap: 10px;
             }
 
+            .stat-item {
+                font-size: 11px;
+                gap: 4px;
+            }
+
+            .stat-item .stat-icon {
+                font-size: 14px;
+            }
+
             .stat-divider {
-                display: none;
+                height: 12px;
             }
 
             .popular-recipes {
-                flex-direction: column;
+                width: 100%;
+                justify-content: center;
                 gap: 6px;
             }
 
+            .popular-recipes .popular-label {
+                font-size: 11px;
+            }
+
             .popular-recipes .popular-list {
-                flex-wrap: wrap;
-                justify-content: center;
+                gap: 6px;
+            }
+
+            .popular-recipes .popular-item {
+                padding: 3px 8px;
+                font-size: 11px;
+            }
+
+            /* 메인 헤더 컴팩트 */
+            .header-main {
+                padding: 10px 12px;
+            }
+
+            .site-title {
+                margin-bottom: 10px;
+            }
+
+            .site-title h1 {
+                font-size: 20px;
+                gap: 6px;
+            }
+
+            .site-title p {
+                font-size: 12px;
+                margin-top: 2px;
+            }
+
+            /* 검색창 컴팩트 */
+            .search-container {
+                max-width: 100%;
+            }
+
+            .search-input {
+                padding: 10px 40px 10px 14px;
+                font-size: 14px;
+                border-radius: 30px;
+            }
+
+            .search-icon {
+                right: 14px;
+                font-size: 16px;
+            }
+
+            .search-clear {
+                right: 38px;
+                width: 20px;
+                height: 20px;
+                font-size: 12px;
             }
         }
 
@@ -321,6 +422,38 @@
             white-space: nowrap;
         }
 
+        /* 모바일 카테고리 컴팩트 */
+        @media (max-width: 768px) {
+            .categories-section {
+                padding: 12px;
+            }
+
+            .categories-scroll {
+                gap: 8px;
+                padding: 6px 0;
+            }
+
+            .category-btn {
+                min-width: 70px;
+                padding: 8px 12px;
+                gap: 6px;
+                border-radius: 12px;
+            }
+
+            .category-img {
+                width: 36px;
+                height: 36px;
+            }
+
+            .category-emoji {
+                font-size: 24px;
+            }
+
+            .category-name {
+                font-size: 11px;
+            }
+        }
+
         /* 레시피 그리드 */
         .recipes-section {
             padding: 0 20px 40px;
@@ -353,6 +486,38 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 24px;
+        }
+
+        /* 모바일 레시피 섹션 */
+        @media (max-width: 768px) {
+            .recipes-section {
+                padding: 0 12px 30px;
+            }
+
+            .section-header {
+                margin-bottom: 12px;
+            }
+
+            .section-title {
+                font-size: 18px;
+                gap: 6px;
+            }
+
+            .recipe-count {
+                font-size: 13px;
+            }
+
+            .recipes-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .recipes-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
         }
 
         /* 레시피 카드 */
@@ -411,7 +576,7 @@
             font-weight: 600;
         }
 
-        /* 클릭수 배지 (새로 추가) */
+        /* 클릭수 배지 */
         .recipe-clicks-badge {
             position: absolute;
             top: 10px;
@@ -479,6 +644,35 @@
         .recipe-meta-item.products {
             color: var(--coupang-blue);
             font-weight: 600;
+        }
+
+        /* 모바일 레시피 카드 */
+        @media (max-width: 768px) {
+            .recipe-thumbnail {
+                height: 150px;
+            }
+
+            .recipe-info {
+                padding: 12px;
+            }
+
+            .recipe-title {
+                font-size: 16px;
+            }
+
+            .recipe-desc {
+                font-size: 13px;
+            }
+
+            .recipe-meta {
+                gap: 8px;
+                margin-top: 10px;
+                padding-top: 10px;
+            }
+
+            .recipe-meta-item {
+                font-size: 11px;
+            }
         }
 
         /* 모달 */
@@ -728,6 +922,28 @@
             margin-top: 4px;
         }
 
+        @media (max-width: 768px) {
+            .modal-info {
+                padding: 16px;
+            }
+
+            .modal-title {
+                font-size: 20px;
+            }
+
+            .modal-links {
+                flex-direction: column;
+            }
+
+            .modal-link {
+                justify-content: center;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         /* 로딩 & 빈 상태 */
         .loading {
             text-align: center;
@@ -830,25 +1046,27 @@
 
         @media (max-width: 768px) {
             .hero {
-                height: 220px;
+                height: 180px;
             }
 
             .hero-overlay {
-                padding: 0 20px;
+                padding: 0 16px;
                 background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
             }
 
             .hero-title {
-                font-size: 24px;
+                font-size: 20px;
+                margin-bottom: 8px;
             }
 
             .hero-subtitle {
-                font-size: 14px;
+                font-size: 12px;
             }
 
             .hero-cta {
-                padding: 10px 20px;
-                font-size: 13px;
+                padding: 8px 16px;
+                font-size: 12px;
+                margin-top: 12px;
             }
         }
 
@@ -869,56 +1087,6 @@
         .footer-text a {
             color: #ccc;
         }
-
-        /* 반응형 */
-        @media (max-width: 768px) {
-            .header-top {
-                flex-direction: column;
-                gap: 8px;
-                text-align: center;
-            }
-
-            .site-title h1 {
-                font-size: 22px;
-            }
-
-            .recipes-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-                gap: 16px;
-            }
-
-            .modal-links {
-                flex-direction: column;
-            }
-
-            .modal-link {
-                justify-content: center;
-            }
-
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .recipes-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .category-btn {
-                min-width: 80px;
-                padding: 10px 14px;
-            }
-
-            .category-img {
-                width: 40px;
-                height: 40px;
-            }
-
-            .category-emoji {
-                font-size: 26px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -932,24 +1100,27 @@
             <span class="header-slogan">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</span>
         </div>
         
-        <!-- 📊 통계 표시 영역 (새로 추가) -->
+        <!-- 📊 통계 표시 영역 (컴팩트 버전) -->
         <div class="stats-bar" id="statsBar">
-            <div class="stat-item">
-                <span class="stat-icon">👥</span>
-                <span>오늘 방문</span>
-                <span class="stat-value" id="todayVisits">-</span>
-                <span>명</span>
+            <!-- 방문자 통계 가로 배치 -->
+            <div class="stats-row">
+                <div class="stat-item">
+                    <span class="stat-icon">👥</span>
+                    <span>오늘</span>
+                    <span class="stat-value" id="todayVisits">-</span>
+                    <span>명</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-icon">📊</span>
+                    <span>총</span>
+                    <span class="stat-value" id="totalVisits">-</span>
+                    <span>명</span>
+                </div>
             </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-                <span class="stat-icon">📊</span>
-                <span>총 방문</span>
-                <span class="stat-value" id="totalVisits">-</span>
-                <span>명</span>
-            </div>
-            <div class="stat-divider"></div>
+            <!-- 인기 레시피 -->
             <div class="popular-recipes">
-                <span class="popular-label">🔥 인기 레시피</span>
+                <span class="popular-label">🔥 인기</span>
                 <div class="popular-list" id="popularList">
                     <span class="popular-item">로딩 중...</span>
                 </div>
@@ -1052,7 +1223,7 @@
         let searchKeyword = '';
 
         // ============================================
-        // 📌 통계 기능 (새로 추가)
+        // 📌 통계 기능
         // ============================================
         
         // 방문 기록
@@ -1119,7 +1290,7 @@
         }
 
         // ============================================
-        // 📌 구글 시트 데이터 가져오기 (자동 헤더 감지!)
+        // 📌 구글 시트 데이터 가져오기
         // ============================================
         async function fetchSheetData(sheetName) {
             const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
