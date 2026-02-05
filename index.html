@@ -136,18 +136,6 @@
             color: var(--warm-orange);
         }
 
-        .stat-item .stat-value.green {
-            color: #22c55e;
-        }
-
-        .stat-item .stat-value.blue {
-            color: #3b82f6;
-        }
-
-        .stat-item .stat-value.red {
-            color: #ef4444;
-        }
-
         .stat-divider {
             width: 1px;
             height: 16px;
@@ -1116,6 +1104,7 @@
         
         <div class="stats-bar" id="statsBar">
             <div class="stats-row">
+                <!-- 일반 사용자에게 보이는 통계: 오늘/총 방문자만 -->
                 <div class="stat-item">
                     <span class="stat-icon">👥</span>
                     <span>오늘</span>
@@ -1128,24 +1117,6 @@
                     <span>총</span>
                     <span class="stat-value" id="totalVisits">-</span>
                     <span>명</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-icon">🆕</span>
-                    <span>신규</span>
-                    <span class="stat-value green" id="newVisitors">-</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-icon">🔄</span>
-                    <span>재방문</span>
-                    <span class="stat-value blue" id="returningVisitors">-</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-icon">🚪</span>
-                    <span>이탈</span>
-                    <span class="stat-value red" id="bounceCount">-</span>
                 </div>
             </div>
             <div class="stats-row">
@@ -1318,12 +1289,11 @@
                 const response = await fetch(`${STATS_API_URL}?action=getStats`);
                 const data = await response.json();
                 
+                // 일반 사용자에게 보이는 통계만 업데이트
                 document.getElementById('todayVisits').textContent = (data.todayVisits || 0).toLocaleString();
                 document.getElementById('totalVisits').textContent = (data.totalVisits || 0).toLocaleString();
-                document.getElementById('newVisitors').textContent = (data.newVisitors || 0).toLocaleString();
-                document.getElementById('returningVisitors').textContent = (data.returningVisitors || 0).toLocaleString();
-                document.getElementById('bounceCount').textContent = (data.bounceCount || 0).toLocaleString();
                 
+                // 인기 레시피 표시
                 const popularList = document.getElementById('popularList');
                 if (data.topRecipes && data.topRecipes.length > 0) {
                     const hasClicks = data.topRecipes.some(r => r.clicks > 0);
@@ -1334,19 +1304,16 @@
                             item.addEventListener('click', () => openModal(item.dataset.id));
                         });
                     } else {
-                        popularList.innerHTML = '<span class="popular-item">아직 데이터 수집 중</span>';
+                        popularList.innerHTML = '<span class="popular-item">쿠팡쇼핑</span><span class="popular-item">김치찌개</span><span class="popular-item">된장찌개</span>';
                     }
                 } else {
-                    popularList.innerHTML = '<span class="popular-item">아직 데이터 수집 중</span>';
+                    popularList.innerHTML = '<span class="popular-item">쿠팡쇼핑</span><span class="popular-item">김치찌개</span><span class="popular-item">된장찌개</span>';
                 }
             } catch (error) {
                 console.error('통계 로드 실패:', error);
                 document.getElementById('todayVisits').textContent = '-';
                 document.getElementById('totalVisits').textContent = '-';
-                document.getElementById('newVisitors').textContent = '-';
-                document.getElementById('returningVisitors').textContent = '-';
-                document.getElementById('bounceCount').textContent = '-';
-                document.getElementById('popularList').innerHTML = '<span class="popular-item">로딩 실패</span>';
+                document.getElementById('popularList').innerHTML = '<span class="popular-item">쿠팡쇼핑</span><span class="popular-item">김치찌개</span><span class="popular-item">된장찌개</span>';
             }
         }
 
