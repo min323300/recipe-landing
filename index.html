@@ -36,7 +36,6 @@
             min-height: 100vh;
         }
 
-        /* 헤더 */
         .header {
             background: white;
             box-shadow: var(--shadow-soft);
@@ -61,10 +60,6 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 18px;
-        }
-
-        .coupang-logo img {
-            height: 24px;
         }
 
         .coupang-logo-text {
@@ -106,25 +101,22 @@
             margin-top: 4px;
         }
 
-        /* ============================================ */
-        /* 📊 통계 표시 영역 */
-        /* ============================================ */
         .stats-bar {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 20px;
+            gap: 8px;
             padding: 12px 20px;
             background: linear-gradient(135deg, #fff5f0 0%, #ffe8dc 100%);
             border-bottom: 1px solid #ffe0d0;
-            flex-wrap: wrap;
         }
 
-        /* 방문자 통계 가로 묶음 */
         .stats-row {
             display: flex;
             align-items: center;
             gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .stat-item {
@@ -142,6 +134,18 @@
         .stat-item .stat-value {
             font-weight: 700;
             color: var(--warm-orange);
+        }
+
+        .stat-item .stat-value.green {
+            color: #22c55e;
+        }
+
+        .stat-item .stat-value.blue {
+            color: #3b82f6;
+        }
+
+        .stat-item .stat-value.red {
+            color: #ef4444;
         }
 
         .stat-divider {
@@ -183,9 +187,6 @@
             color: white;
         }
 
-        /* ============================================ */
-        /* 📱 모바일 컴팩트 스타일 */
-        /* ============================================ */
         @media (max-width: 768px) {
             .header-top {
                 padding: 6px 12px;
@@ -211,14 +212,12 @@
             }
 
             .stats-bar {
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 8px;
+                gap: 6px;
                 padding: 8px 12px;
             }
 
             .stats-row {
-                gap: 10px;
+                gap: 8px;
             }
 
             .stat-item {
@@ -235,8 +234,6 @@
             }
 
             .popular-recipes {
-                width: 100%;
-                justify-content: center;
                 gap: 6px;
             }
 
@@ -294,7 +291,6 @@
             }
         }
 
-        /* 검색창 */
         .search-container {
             max-width: 500px;
             margin: 0 auto;
@@ -350,7 +346,6 @@
             display: flex;
         }
 
-        /* 카테고리 */
         .categories-section {
             padding: 20px;
             max-width: 1200px;
@@ -449,7 +444,6 @@
             }
         }
 
-        /* 레시피 그리드 */
         .recipes-section {
             padding: 0 20px 40px;
             max-width: 1200px;
@@ -514,7 +508,6 @@
             }
         }
 
-        /* 레시피 카드 */
         .recipe-card {
             background: white;
             border-radius: var(--radius);
@@ -667,7 +660,6 @@
             }
         }
 
-        /* 모달 */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -932,7 +924,6 @@
             }
         }
 
-        /* 로딩 & 빈 상태 */
         .loading {
             text-align: center;
             padding: 60px 20px;
@@ -968,7 +959,6 @@
             font-size: 16px;
         }
 
-        /* 히어로 배너 */
         .hero {
             position: relative;
             width: 100%;
@@ -1058,7 +1048,6 @@
             }
         }
 
-        /* 푸터 */
         .footer {
             background: var(--coupang-dark);
             color: #999;
@@ -1072,11 +1061,6 @@
             line-height: 1.8;
         }
 
-        .footer-text a {
-            color: #ccc;
-        }
-
-        /* 카카오톡 플로팅 버튼 */
         .kakao-float-btn {
             position: fixed;
             bottom: 24px;
@@ -1121,7 +1105,6 @@
     </style>
 </head>
 <body>
-    <!-- 헤더 -->
     <header class="header">
         <div class="header-top">
             <a href="https://www.coupang.com" target="_blank" class="coupang-logo">
@@ -1131,7 +1114,6 @@
             <span class="header-slogan">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</span>
         </div>
         
-        <!-- 📊 통계 표시 영역 -->
         <div class="stats-bar" id="statsBar">
             <div class="stats-row">
                 <div class="stat-item">
@@ -1147,11 +1129,31 @@
                     <span class="stat-value" id="totalVisits">-</span>
                     <span>명</span>
                 </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-icon">🆕</span>
+                    <span>신규</span>
+                    <span class="stat-value green" id="newVisitors">-</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-icon">🔄</span>
+                    <span>재방문</span>
+                    <span class="stat-value blue" id="returningVisitors">-</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-icon">🚪</span>
+                    <span>이탈</span>
+                    <span class="stat-value red" id="bounceCount">-</span>
+                </div>
             </div>
-            <div class="popular-recipes">
-                <span class="popular-label">🔥 인기</span>
-                <div class="popular-list" id="popularList">
-                    <span class="popular-item">로딩 중...</span>
+            <div class="stats-row">
+                <div class="popular-recipes">
+                    <span class="popular-label">🔥 인기</span>
+                    <div class="popular-list" id="popularList">
+                        <span class="popular-item">로딩 중...</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1169,7 +1171,6 @@
         </div>
     </header>
 
-    <!-- 히어로 배너 -->
     <section class="hero">
         <img src="images/1000.png" alt="맛있는 한식 요리" class="hero-image" onerror="this.style.display='none'">
         <div class="hero-overlay">
@@ -1181,7 +1182,6 @@
         </div>
     </section>
 
-    <!-- 카테고리 -->
     <section class="categories-section">
         <div class="categories-scroll" id="categoriesContainer">
             <div class="loading">
@@ -1191,7 +1191,6 @@
         </div>
     </section>
 
-    <!-- 레시피 목록 -->
     <section class="recipes-section">
         <div class="section-header">
             <h2 class="section-title">
@@ -1207,15 +1206,12 @@
         </div>
     </section>
 
-    <!-- 모달 -->
     <div class="modal-overlay" id="modalOverlay"></div>
     <div class="modal" id="modal">
         <button class="modal-close" id="modalClose">✕</button>
-        <div class="modal-content" id="modalContent">
-        </div>
+        <div class="modal-content" id="modalContent"></div>
     </div>
 
-    <!-- 푸터 -->
     <footer class="footer">
         <p class="footer-text">
             © 2024 레딧플러스 | BS컴퍼니<br>
@@ -1223,45 +1219,36 @@
         </p>
     </footer>
 
-    <!-- 카카오톡 상담 플로팅 버튼 -->
     <a href="http://pf.kakao.com/_qJVRX/chat" target="_blank" class="kakao-float-btn" title="카카오톡 문의">
         <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png" alt="카카오톡 상담">
     </a>
 
     <script>
-        // ============================================
-        // 📌 구글 시트 설정
-        // ============================================
         const SHEET_ID = '1iq0rpcyhqRayAXIdr-D4NYqZQ_J8Qvf_GFF3vgVU6bw';
-        
-        const SHEET_NAMES = {
-            categories: '카테고리',
-            recipes: '레시피',
-            products: '상품'
-        };
-
-        // ============================================
-        // 📌 통계 API URL (새 버전!)
-        // ============================================
+        const SHEET_NAMES = { categories: '카테고리', recipes: '레시피', products: '상품' };
         const STATS_API_URL = 'https://script.google.com/macros/s/AKfycbyb0tObdJB53OnpPrlOg9r8HtTD7BJ1ySdiFUdMCO7xUf-5WNj9kmaDJAT6gqiMG-Nt/exec';
 
-        // ============================================
-        // 📌 데이터 저장소
-        // ============================================
         let categoriesData = [];
         let recipesData = [];
         let productsData = [];
         let currentCategory = '전체';
         let searchKeyword = '';
+        let isEngaged = false;
 
-        // ============================================
-        // 📌 유입 경로 감지 함수 (NEW!)
-        // ============================================
+        function getVisitorType() {
+            const visited = localStorage.getItem('redditplus_visited');
+            if (visited) {
+                return 'returning';
+            } else {
+                localStorage.setItem('redditplus_visited', 'true');
+                localStorage.setItem('redditplus_firstVisit', new Date().toISOString());
+                return 'new';
+            }
+        }
+
         function detectSource() {
             const referrer = document.referrer.toLowerCase();
             const urlParams = new URLSearchParams(window.location.search);
-            
-            // URL 파라미터로 소스 지정된 경우 (예: ?utm_source=youtube)
             const utmSource = urlParams.get('utm_source');
             if (utmSource) {
                 if (utmSource.includes('youtube')) return 'youtube';
@@ -1270,69 +1257,62 @@
                 if (utmSource.includes('kakao')) return 'kakao';
                 return 'other';
             }
-            
-            // Referrer 기반 감지
             if (!referrer) return 'direct';
-            
-            if (referrer.includes('youtube.com') || referrer.includes('youtu.be')) {
-                return 'youtube';
-            }
-            if (referrer.includes('naver.com') || referrer.includes('naver.me')) {
-                return 'naver';
-            }
-            if (referrer.includes('google.com') || referrer.includes('google.co.kr')) {
-                return 'google';
-            }
-            if (referrer.includes('kakao.com') || referrer.includes('kakaocorp.com')) {
-                return 'kakao';
-            }
-            
+            if (referrer.includes('youtube.com') || referrer.includes('youtu.be')) return 'youtube';
+            if (referrer.includes('naver.com') || referrer.includes('naver.me')) return 'naver';
+            if (referrer.includes('google.com') || referrer.includes('google.co.kr')) return 'google';
+            if (referrer.includes('kakao.com') || referrer.includes('kakaocorp.com')) return 'kakao';
             return 'other';
         }
 
-        // ============================================
-        // 📌 방문 기록 (유입 경로 포함)
-        // ============================================
         async function recordVisit() {
             try {
                 const source = detectSource();
-                await fetch(`${STATS_API_URL}?action=visit&source=${source}`, { mode: 'no-cors' });
-                console.log('방문 기록 완료 - 유입경로:', source);
+                const visitorType = getVisitorType();
+                await fetch(`${STATS_API_URL}?action=visit&source=${source}&visitorType=${visitorType}`, { mode: 'no-cors' });
+                console.log('방문 기록 완료 - 유입경로:', source, '방문자유형:', visitorType);
             } catch (error) {
                 console.error('방문 기록 실패:', error);
             }
         }
 
-        // ============================================
-        // 📌 레시피 클릭 기록 (제목 포함)
-        // ============================================
+        function setupBounceTracking() {
+            setTimeout(() => {
+                isEngaged = true;
+                console.log('사용자 참여 확인 (10초 이상 체류)');
+            }, 10000);
+
+            window.addEventListener('beforeunload', () => {
+                if (!isEngaged) {
+                    navigator.sendBeacon(`${STATS_API_URL}?action=bounce`);
+                    console.log('이탈자 기록');
+                }
+            });
+
+            ['click', 'scroll', 'keydown'].forEach(event => {
+                document.addEventListener(event, () => { isEngaged = true; }, { once: true });
+            });
+        }
+
         async function recordClick(recipeId, recipeTitle) {
             try {
                 const encodedTitle = encodeURIComponent(recipeTitle || '');
                 await fetch(`${STATS_API_URL}?action=click&id=${recipeId}&title=${encodedTitle}`, { mode: 'no-cors' });
-                console.log('클릭 기록 완료:', recipeId, recipeTitle);
             } catch (error) {
                 console.error('클릭 기록 실패:', error);
             }
         }
 
-        // ============================================
-        // 📌 상품 클릭 기록 (NEW!)
-        // ============================================
         async function recordProductClick(productName, recipeId, link) {
             try {
                 const encodedName = encodeURIComponent(productName || '');
                 const encodedLink = encodeURIComponent(link || '');
                 await fetch(`${STATS_API_URL}?action=productClick&name=${encodedName}&recipeId=${recipeId}&link=${encodedLink}`, { mode: 'no-cors' });
-                console.log('상품 클릭 기록:', productName);
             } catch (error) {
                 console.error('상품 클릭 기록 실패:', error);
             }
         }
 
-        // ============================================
-        // 📌 통계 가져오기
-        // ============================================
         async function loadStats() {
             try {
                 const response = await fetch(`${STATS_API_URL}?action=getStats`);
@@ -1340,21 +1320,18 @@
                 
                 document.getElementById('todayVisits').textContent = (data.todayVisits || 0).toLocaleString();
                 document.getElementById('totalVisits').textContent = (data.totalVisits || 0).toLocaleString();
+                document.getElementById('newVisitors').textContent = (data.newVisitors || 0).toLocaleString();
+                document.getElementById('returningVisitors').textContent = (data.returningVisitors || 0).toLocaleString();
+                document.getElementById('bounceCount').textContent = (data.bounceCount || 0).toLocaleString();
                 
                 const popularList = document.getElementById('popularList');
                 if (data.topRecipes && data.topRecipes.length > 0) {
                     const hasClicks = data.topRecipes.some(r => r.clicks > 0);
                     if (hasClicks) {
-                        popularList.innerHTML = data.topRecipes
-                            .filter(r => r.clicks > 0)
-                            .map(r => `<span class="popular-item" data-id="${r.id}">${r.title}</span>`)
-                            .join('');
-                        
+                        popularList.innerHTML = data.topRecipes.filter(r => r.clicks > 0)
+                            .map(r => `<span class="popular-item" data-id="${r.id}">${r.title}</span>`).join('');
                         popularList.querySelectorAll('.popular-item').forEach(item => {
-                            item.addEventListener('click', () => {
-                                const id = item.dataset.id;
-                                openModal(id);
-                            });
+                            item.addEventListener('click', () => openModal(item.dataset.id));
                         });
                     } else {
                         popularList.innerHTML = '<span class="popular-item">아직 데이터 수집 중</span>';
@@ -1362,47 +1339,29 @@
                 } else {
                     popularList.innerHTML = '<span class="popular-item">아직 데이터 수집 중</span>';
                 }
-                
-                // 콘솔에 유입 경로 통계 출력
-                if (data.todaySourceStats) {
-                    console.log('📊 오늘 유입 경로:', data.todaySourceStats);
-                }
-                
-                console.log('통계 로드 완료:', data);
             } catch (error) {
                 console.error('통계 로드 실패:', error);
                 document.getElementById('todayVisits').textContent = '-';
                 document.getElementById('totalVisits').textContent = '-';
+                document.getElementById('newVisitors').textContent = '-';
+                document.getElementById('returningVisitors').textContent = '-';
+                document.getElementById('bounceCount').textContent = '-';
                 document.getElementById('popularList').innerHTML = '<span class="popular-item">로딩 실패</span>';
             }
         }
 
-        // ============================================
-        // 📌 구글 시트 데이터 가져오기
-        // ============================================
         async function fetchSheetData(sheetName) {
             const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
-            
             try {
                 const response = await fetch(url);
                 const text = await response.text();
-                
                 const jsonText = text.substring(text.indexOf('(') + 1, text.lastIndexOf(')'));
                 const json = JSON.parse(jsonText);
-                
-                if (!json.table || !json.table.rows || json.table.rows.length === 0) {
-                    return [];
-                }
-
+                if (!json.table || !json.table.rows || json.table.rows.length === 0) return [];
                 const firstRow = json.table.rows[0];
                 const firstCellValue = firstRow.c[0] ? firstRow.c[0].v : '';
-                
-                const isFirstRowHeader = typeof firstCellValue === 'string' && 
-                                         isNaN(Number(firstCellValue)) &&
-                                         firstCellValue !== '';
-
+                const isFirstRowHeader = typeof firstCellValue === 'string' && isNaN(Number(firstCellValue)) && firstCellValue !== '';
                 let headers, dataRows;
-                
                 if (isFirstRowHeader) {
                     headers = firstRow.c.map(cell => cell ? (cell.v || '').toString().trim() : '');
                     dataRows = json.table.rows.slice(1);
@@ -1410,20 +1369,16 @@
                     headers = json.table.cols.map(col => (col.label || '').trim());
                     dataRows = json.table.rows;
                 }
-
                 const rows = dataRows.map(row => {
                     const obj = {};
                     if (row.c) {
                         row.c.forEach((cell, index) => {
                             const header = headers[index];
-                            if (header) {
-                                obj[header] = cell ? (cell.v || '') : '';
-                            }
+                            if (header) obj[header] = cell ? (cell.v || '') : '';
                         });
                     }
                     return obj;
                 });
-
                 return rows.filter(row => Object.values(row).some(v => v !== ''));
             } catch (error) {
                 console.error(`시트 "${sheetName}" 로드 실패:`, error);
@@ -1431,9 +1386,6 @@
             }
         }
 
-        // ============================================
-        // 📌 모든 데이터 로드
-        // ============================================
         async function loadAllData() {
             try {
                 const [categories, recipes, products] = await Promise.all([
@@ -1441,54 +1393,29 @@
                     fetchSheetData(SHEET_NAMES.recipes),
                     fetchSheetData(SHEET_NAMES.products)
                 ]);
-
                 categoriesData = categories;
                 recipesData = recipes;
                 productsData = products;
-
                 renderCategories();
                 renderRecipes();
-
             } catch (error) {
                 console.error('데이터 로드 실패:', error);
                 showError();
             }
         }
 
-        // ============================================
-        // 📌 카테고리 렌더링
-        // ============================================
         function renderCategories() {
             const container = document.getElementById('categoriesContainer');
-            
-            let html = `
-                <button class="category-btn active" data-category="전체">
-                    <span class="category-emoji">📋</span>
-                    <span class="category-name">전체</span>
-                </button>
-            `;
-
+            let html = `<button class="category-btn active" data-category="전체"><span class="category-emoji">📋</span><span class="category-name">전체</span></button>`;
             categoriesData.forEach(cat => {
                 const name = cat['카테고리명'] || cat['이름'] || '';
                 const imgUrl = cat['이미지URL'] || cat['이미지'] || '';
                 const icon = cat['아이콘'] || cat['이모지'] || '🍽️';
-                
                 if (!name) return;
-
-                const imgHtml = imgUrl 
-                    ? `<img src="${imgUrl}" alt="${name}" class="category-img" onerror="this.outerHTML='<span class=\\'category-emoji\\'>${icon}</span>'">`
-                    : `<span class="category-emoji">${icon}</span>`;
-
-                html += `
-                    <button class="category-btn" data-category="${name}">
-                        ${imgHtml}
-                        <span class="category-name">${name}</span>
-                    </button>
-                `;
+                const imgHtml = imgUrl ? `<img src="${imgUrl}" alt="${name}" class="category-img" onerror="this.outerHTML='<span class=\\'category-emoji\\'>${icon}</span>'">` : `<span class="category-emoji">${icon}</span>`;
+                html += `<button class="category-btn" data-category="${name}">${imgHtml}<span class="category-name">${name}</span></button>`;
             });
-
             container.innerHTML = html;
-
             container.querySelectorAll('.category-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     container.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
@@ -1499,43 +1426,25 @@
             });
         }
 
-        // ============================================
-        // 📌 레시피 렌더링
-        // ============================================
         function renderRecipes() {
             const container = document.getElementById('recipesContainer');
             const countEl = document.getElementById('recipeCount');
-
             let filtered = recipesData.filter(recipe => {
                 const title = recipe['제목'] || '';
                 const desc = recipe['설명'] || '';
                 const category = recipe['카테고리'] || '';
-
-                if (currentCategory !== '전체' && category !== currentCategory) {
-                    return false;
-                }
-
+                if (currentCategory !== '전체' && category !== currentCategory) return false;
                 if (searchKeyword) {
                     const keyword = searchKeyword.toLowerCase();
-                    return title.toLowerCase().includes(keyword) || 
-                           desc.toLowerCase().includes(keyword);
+                    return title.toLowerCase().includes(keyword) || desc.toLowerCase().includes(keyword);
                 }
-
                 return true;
             });
-
             countEl.textContent = `(${filtered.length}개)`;
-
             if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-emoji">🔍</div>
-                        <p class="empty-state-text">검색 결과가 없습니다.</p>
-                    </div>
-                `;
+                container.innerHTML = `<div class="empty-state"><div class="empty-state-emoji">🔍</div><p class="empty-state-text">검색 결과가 없습니다.</p></div>`;
                 return;
             }
-
             let html = '';
             filtered.forEach(recipe => {
                 const id = recipe['ID'] || '';
@@ -1546,41 +1455,12 @@
                 const emoji = recipe['이모지'] || '🍽️';
                 const duration = recipe['영상길이'] || '';
                 const clicks = recipe['클릭수'] || 0;
-
                 const productCount = productsData.filter(p => p['레시피ID'] == id).length;
-
-                const thumbnailHtml = imgUrl
-                    ? `<img src="${imgUrl}" alt="${title}" onerror="this.parentElement.innerHTML='<div class=\\'recipe-thumbnail-emoji\\'>${emoji}</div>'">`
-                    : `<div class="recipe-thumbnail-emoji">${emoji}</div>`;
-
-                const clicksBadgeHtml = clicks >= 10 
-                    ? `<span class="recipe-clicks-badge">👀 ${clicks}</span>` 
-                    : '';
-
-                html += `
-                    <article class="recipe-card" data-id="${id}" data-title="${title}">
-                        <div class="recipe-thumbnail">
-                            ${thumbnailHtml}
-                            ${clicksBadgeHtml}
-                            ${duration ? `<span class="recipe-duration">⏱️ ${duration}</span>` : ''}
-                        </div>
-                        <div class="recipe-info">
-                            <span class="recipe-category-tag">${category}</span>
-                            <h3 class="recipe-title">${title}</h3>
-                            <p class="recipe-desc">${desc}</p>
-                            <div class="recipe-meta">
-                                <span class="recipe-meta-item">📺 영상</span>
-                                <span class="recipe-meta-item">📝 블로그</span>
-                                ${productCount > 0 ? `<span class="recipe-meta-item products">🛒 재료 ${productCount}개</span>` : ''}
-                            </div>
-                        </div>
-                    </article>
-                `;
+                const thumbnailHtml = imgUrl ? `<img src="${imgUrl}" alt="${title}" onerror="this.parentElement.innerHTML='<div class=\\'recipe-thumbnail-emoji\\'>${emoji}</div>'">` : `<div class="recipe-thumbnail-emoji">${emoji}</div>`;
+                const clicksBadgeHtml = clicks >= 10 ? `<span class="recipe-clicks-badge">👀 ${clicks}</span>` : '';
+                html += `<article class="recipe-card" data-id="${id}" data-title="${title}"><div class="recipe-thumbnail">${thumbnailHtml}${clicksBadgeHtml}${duration ? `<span class="recipe-duration">⏱️ ${duration}</span>` : ''}</div><div class="recipe-info"><span class="recipe-category-tag">${category}</span><h3 class="recipe-title">${title}</h3><p class="recipe-desc">${desc}</p><div class="recipe-meta"><span class="recipe-meta-item">📺 영상</span><span class="recipe-meta-item">📝 블로그</span>${productCount > 0 ? `<span class="recipe-meta-item products">🛒 재료 ${productCount}개</span>` : ''}</div></div></article>`;
             });
-
             container.innerHTML = html;
-
-            // 클릭 이벤트 (제목 포함)
             container.querySelectorAll('.recipe-card').forEach(card => {
                 card.addEventListener('click', () => {
                     const id = card.dataset.id;
@@ -1591,153 +1471,74 @@
             });
         }
 
-        // ============================================
-        // 📌 모달 열기 (상품 클릭 추적 포함)
-        // ============================================
         function openModal(recipeId) {
             const recipe = recipesData.find(r => r['ID'] == recipeId);
             if (!recipe) return;
-
             const title = recipe['제목'] || '';
             const desc = recipe['설명'] || '';
             const youtubeUrl = recipe['유튜브링크'] || recipe['유튜브'] || '';
             const blogUrl = recipe['블로그링크'] || recipe['블로그'] || recipe['티스토리링크'] || '';
-
             let youtubeId = '';
             if (youtubeUrl) {
                 const match = youtubeUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([^&\s?]+)/);
                 if (match) youtubeId = match[1];
             }
-
             const products = productsData.filter(p => p['레시피ID'] == recipeId);
-
             let productsHtml = '';
             if (products.length > 0) {
-                productsHtml = `
-                    <div class="products-section">
-                        <div class="products-header">
-                            <span class="products-title">🛒 필요한 재료</span>
-                            <span class="products-badge">${products.length}개 상품</span>
-                        </div>
-                        <div class="products-grid">
-                            ${products.map(p => {
-                                const name = p['상품명'] || '';
-                                const price = p['가격'] || '';
-                                const imgUrl = p['이미지URL'] || p['이미지'] || '';
-                                const emoji = p['이모지'] || '🛍️';
-                                const shop = p['쇼핑몰'] || '쿠팡';
-                                const link = p['쇼핑링크'] || p['링크'] || '#';
-                                
-                                // 이름과 링크에서 특수문자 이스케이프
-                                const safeName = name.replace(/'/g, "\\'").replace(/"/g, '\\"');
-                                const safeLink = link.replace(/'/g, "\\'").replace(/"/g, '\\"');
-
-                                const imgHtml = imgUrl
-                                    ? `<img src="${imgUrl}" alt="${name}" class="product-img" onerror="this.outerHTML='<div class=\\'product-emoji\\'>${emoji}</div>'">`
-                                    : `<div class="product-emoji">${emoji}</div>`;
-
-                                return `
-                                    <a href="${link}" target="_blank" class="product-card" 
-                                       onclick="recordProductClick('${safeName}', '${recipeId}', '${safeLink}')">
-                                        ${imgHtml}
-                                        <div class="product-name">${name}</div>
-                                        ${price ? `<div class="product-price">${price}</div>` : ''}
-                                        <div class="product-shop">${shop}</div>
-                                    </a>
-                                `;
-                            }).join('')}
-                        </div>
-                    </div>
-                `;
+                productsHtml = `<div class="products-section"><div class="products-header"><span class="products-title">🛒 필요한 재료</span><span class="products-badge">${products.length}개 상품</span></div><div class="products-grid">${products.map(p => {
+                    const name = p['상품명'] || '';
+                    const price = p['가격'] || '';
+                    const imgUrl = p['이미지URL'] || p['이미지'] || '';
+                    const emoji = p['이모지'] || '🛍️';
+                    const shop = p['쇼핑몰'] || '쿠팡';
+                    const link = p['쇼핑링크'] || p['링크'] || '#';
+                    const safeName = name.replace(/'/g, "\\'").replace(/"/g, '\\"');
+                    const safeLink = link.replace(/'/g, "\\'").replace(/"/g, '\\"');
+                    const imgHtml = imgUrl ? `<img src="${imgUrl}" alt="${name}" class="product-img" onerror="this.outerHTML='<div class=\\'product-emoji\\'>${emoji}</div>'">` : `<div class="product-emoji">${emoji}</div>`;
+                    return `<a href="${link}" target="_blank" class="product-card" onclick="recordProductClick('${safeName}', '${recipeId}', '${safeLink}')">${imgHtml}<div class="product-name">${name}</div>${price ? `<div class="product-price">${price}</div>` : ''}<div class="product-shop">${shop}</div></a>`;
+                }).join('')}</div></div>`;
             }
-
-            const modalContent = document.getElementById('modalContent');
-            modalContent.innerHTML = `
-                <div class="modal-video">
-                    ${youtubeId 
-                        ? `<iframe src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allowfullscreen></iframe>`
-                        : `<div class="modal-video-placeholder">📺 영상 준비 중</div>`
-                    }
-                </div>
-                <div class="modal-info">
-                    <h2 class="modal-title">${title}</h2>
-                    <p class="modal-desc">${desc}</p>
-                    <div class="modal-links">
-                        ${youtubeUrl ? `<a href="${youtubeUrl}" target="_blank" class="modal-link youtube">▶️ 유튜브에서 보기</a>` : ''}
-                        ${blogUrl ? `<a href="${blogUrl}" target="_blank" class="modal-link blog">📝 블로그 글 보기</a>` : ''}
-                    </div>
-                    ${productsHtml}
-                </div>
-            `;
-
+            document.getElementById('modalContent').innerHTML = `<div class="modal-video">${youtubeId ? `<iframe src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allowfullscreen></iframe>` : `<div class="modal-video-placeholder">📺 영상 준비 중</div>`}</div><div class="modal-info"><h2 class="modal-title">${title}</h2><p class="modal-desc">${desc}</p><div class="modal-links">${youtubeUrl ? `<a href="${youtubeUrl}" target="_blank" class="modal-link youtube">▶️ 유튜브에서 보기</a>` : ''}${blogUrl ? `<a href="${blogUrl}" target="_blank" class="modal-link blog">📝 블로그 글 보기</a>` : ''}</div>${productsHtml}</div>`;
             document.getElementById('modalOverlay').classList.add('show');
             document.getElementById('modal').classList.add('show');
             document.body.style.overflow = 'hidden';
         }
 
-        // ============================================
-        // 📌 모달 닫기
-        // ============================================
         function closeModal() {
             document.getElementById('modalOverlay').classList.remove('show');
             document.getElementById('modal').classList.remove('show');
             document.body.style.overflow = '';
-
             const iframe = document.querySelector('.modal-video iframe');
-            if (iframe) {
-                iframe.src = iframe.src;
-            }
+            if (iframe) iframe.src = iframe.src;
         }
 
-        // ============================================
-        // 📌 에러 표시
-        // ============================================
         function showError() {
-            document.getElementById('categoriesContainer').innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-state-emoji">⚠️</div>
-                    <p class="empty-state-text">데이터를 불러올 수 없습니다.<br>구글 시트 설정을 확인해주세요.</p>
-                </div>
-            `;
+            document.getElementById('categoriesContainer').innerHTML = `<div class="empty-state"><div class="empty-state-emoji">⚠️</div><p class="empty-state-text">데이터를 불러올 수 없습니다.<br>구글 시트 설정을 확인해주세요.</p></div>`;
             document.getElementById('recipesContainer').innerHTML = '';
         }
 
-        // ============================================
-        // 📌 이벤트 리스너
-        // ============================================
         document.addEventListener('DOMContentLoaded', () => {
-            // 방문 기록 & 통계 로드
             recordVisit();
+            setupBounceTracking();
             loadStats();
-            
-            // 데이터 로드
             loadAllData();
-
-            // 검색
             const searchInput = document.getElementById('searchInput');
             const searchClear = document.getElementById('searchClear');
-
             searchInput.addEventListener('input', (e) => {
                 searchKeyword = e.target.value.trim();
                 searchClear.classList.toggle('show', searchKeyword.length > 0);
                 renderRecipes();
             });
-
             searchClear.addEventListener('click', () => {
                 searchInput.value = '';
                 searchKeyword = '';
                 searchClear.classList.remove('show');
                 renderRecipes();
             });
-
-            // 모달 닫기
             document.getElementById('modalClose').addEventListener('click', closeModal);
             document.getElementById('modalOverlay').addEventListener('click', closeModal);
-
-            // ESC 키로 모달 닫기
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeModal();
-            });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
         });
     </script>
 </body>
