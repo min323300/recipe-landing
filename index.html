@@ -1217,24 +1217,32 @@
             }
         }
 
-        function detectSource() {
-            const referrer = document.referrer.toLowerCase();
-            const urlParams = new URLSearchParams(window.location.search);
-            const utmSource = urlParams.get('utm_source');
-            if (utmSource) {
-                if (utmSource.includes('youtube')) return 'youtube';
-                if (utmSource.includes('naver')) return 'naver';
-                if (utmSource.includes('google')) return 'google';
-                if (utmSource.includes('kakao')) return 'kakao';
-                return 'other';
-            }
-            if (!referrer) return 'direct';
-            if (referrer.includes('youtube.com') || referrer.includes('youtu.be')) return 'youtube';
-            if (referrer.includes('naver.com') || referrer.includes('naver.me')) return 'naver';
-            if (referrer.includes('google.com') || referrer.includes('google.co.kr')) return 'google';
-            if (referrer.includes('kakao.com') || referrer.includes('kakaocorp.com')) return 'kakao';
-            return 'other';
-        }
+function detectSource() {
+    const referrer = document.referrer.toLowerCase();
+    const urlParams = new URLSearchParams(window.location.search);
+    const utmSource = urlParams.get('utm_source');
+    if (utmSource) {
+        const source = utmSource.toLowerCase();
+        if (source.includes('youtube')) return 'youtube';
+        if (source.includes('naver')) return 'naver';
+        if (source.includes('google')) return 'google';
+        if (source.includes('kakaochat')) return 'kakaochat';
+        if (source.includes('kakao')) return 'kakao';
+        if (source.includes('friend')) return 'friend';
+        if (source.includes('tistory')) return 'tistory';
+        if (source.includes('momcafe')) return 'momcafe';
+        if (source.includes('instagram')) return 'instagram';
+        return 'other';
+    }
+    if (!referrer) return 'direct';
+    if (referrer.includes('youtube.com') || referrer.includes('youtu.be')) return 'youtube';
+    if (referrer.includes('naver.com') || referrer.includes('naver.me')) return 'naver';
+    if (referrer.includes('google.com') || referrer.includes('google.co.kr')) return 'google';
+    if (referrer.includes('kakao.com') || referrer.includes('kakaocorp.com')) return 'kakao';
+    if (referrer.includes('instagram.com')) return 'instagram';
+    if (referrer.includes('tistory.com')) return 'tistory';
+    return 'other';
+}
 
         async function recordVisit() {
             try {
