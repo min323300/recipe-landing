@@ -5,12 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>레딧플러스 - 요리부터 재료 구매까지</title>
-    <!-- ✅ SEO 메타태그 -->
     <meta name="description" content="레딧플러스 - 영상으로 배우고, 글로 익히고, 재료는 바로 구매! 한식 레시피부터 간편식까지 쉽고 맛있는 요리 레시피를 제공합니다.">
     <meta name="keywords" content="레시피, 한식, 요리, 쿠팡, 재료구매, 김치찌개, 된장찌개, 간편식, 레딧플러스">
     <meta name="author" content="레딧플러스">
     <meta name="robots" content="index, follow">
-    <!-- ✅ 카카오/SNS 공유용 OG 태그 -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="레딧플러스 - 요리부터 재료 구매까지">
     <meta property="og:description" content="영상으로 배우고, 글로 익히고, 재료는 바로 구매! 쉽고 맛있는 한식 레시피">
@@ -35,13 +33,10 @@
             --shadow-hover: 0 8px 30px rgba(0,0,0,0.15);
             --radius: 16px;
             --radius-sm: 10px;
+            --star-color: #ffc107;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Noto Sans KR', sans-serif;
@@ -83,10 +78,7 @@
             font-size: 14px;
         }
 
-        .header-slogan {
-            color: #aaa;
-            font-size: 12px;
-        }
+        .header-slogan { color: #aaa; font-size: 12px; }
 
         .header-main {
             padding: 16px 20px;
@@ -94,10 +86,7 @@
             margin: 0 auto;
         }
 
-        .site-title {
-            text-align: center;
-            margin-bottom: 16px;
-        }
+        .site-title { text-align: center; margin-bottom: 16px; }
 
         .site-title h1 {
             font-size: 28px;
@@ -109,11 +98,7 @@
             gap: 10px;
         }
 
-        .site-title p {
-            color: var(--text-gray);
-            font-size: 14px;
-            margin-top: 4px;
-        }
+        .site-title p { color: var(--text-gray); font-size: 14px; margin-top: 4px; }
 
         .stats-bar {
             display: flex;
@@ -141,20 +126,9 @@
             color: var(--text-dark);
         }
 
-        .stat-item .stat-icon {
-            font-size: 16px;
-        }
-
-        .stat-item .stat-value {
-            font-weight: 700;
-            color: var(--warm-orange);
-        }
-
-        .stat-divider {
-            width: 1px;
-            height: 16px;
-            background: #ddd;
-        }
+        .stat-item .stat-icon { font-size: 16px; }
+        .stat-item .stat-value { font-weight: 700; color: var(--warm-orange); }
+        .stat-divider { width: 1px; height: 16px; background: #ddd; }
 
         .popular-recipes {
             display: flex;
@@ -163,15 +137,8 @@
             font-size: 13px;
         }
 
-        .popular-recipes .popular-label {
-            font-weight: 600;
-            color: var(--warm-red);
-        }
-
-        .popular-recipes .popular-list {
-            display: flex;
-            gap: 8px;
-        }
+        .popular-recipes .popular-label { font-weight: 600; color: var(--warm-red); }
+        .popular-recipes .popular-list { display: flex; gap: 8px; }
 
         .popular-recipes .popular-item {
             background: white;
@@ -184,114 +151,7 @@
             transition: all 0.2s;
         }
 
-        .popular-recipes .popular-item:hover {
-            background: var(--warm-orange);
-            color: white;
-        }
-
-        @media (max-width: 768px) {
-            .header-top {
-                padding: 6px 12px;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 4px;
-            }
-
-            .coupang-logo {
-                font-size: 14px;
-            }
-
-            .coupang-logo-text {
-                padding: 2px 8px;
-                font-size: 12px;
-            }
-
-            .header-slogan {
-                font-size: 10px;
-                text-align: center;
-                width: 100%;
-            }
-
-            .stats-bar {
-                gap: 6px;
-                padding: 8px 12px;
-            }
-
-            .stats-row {
-                gap: 8px;
-            }
-
-            .stat-item {
-                font-size: 11px;
-                gap: 4px;
-            }
-
-            .stat-item .stat-icon {
-                font-size: 14px;
-            }
-
-            .stat-divider {
-                height: 12px;
-            }
-
-            .popular-recipes {
-                gap: 6px;
-            }
-
-            .popular-recipes .popular-label {
-                font-size: 11px;
-            }
-
-            .popular-recipes .popular-list {
-                gap: 6px;
-            }
-
-            .popular-recipes .popular-item {
-                padding: 3px 8px;
-                font-size: 11px;
-            }
-
-            .header-main {
-                padding: 10px 12px;
-            }
-
-            .site-title {
-                margin-bottom: 10px;
-            }
-
-            .site-title h1 {
-                font-size: 20px;
-                gap: 6px;
-            }
-
-            .site-title p {
-                font-size: 12px;
-                margin-top: 2px;
-            }
-
-            .search-container {
-                max-width: 100%;
-            }
-
-            .search-input {
-                padding: 10px 40px 10px 14px;
-                font-size: 14px;
-                border-radius: 30px;
-            }
-
-            .search-icon {
-                right: 14px;
-                font-size: 16px;
-            }
-
-            .search-clear {
-                right: 38px;
-                width: 20px;
-                height: 20px;
-                font-size: 12px;
-            }
-        }
+        .popular-recipes .popular-item:hover { background: var(--warm-orange); color: white; }
 
         .search-container {
             max-width: 500px;
@@ -344,9 +204,7 @@
             color: #666;
         }
 
-        .search-clear.show {
-            display: flex;
-        }
+        .search-clear.show { display: flex; }
 
         .categories-section {
             padding: 20px;
@@ -362,9 +220,7 @@
             scrollbar-width: none;
         }
 
-        .categories-scroll::-webkit-scrollbar {
-            display: none;
-        }
+        .categories-scroll::-webkit-scrollbar { display: none; }
 
         .category-btn {
             flex-shrink: 0;
@@ -381,10 +237,7 @@
             min-width: 100px;
         }
 
-        .category-btn:hover {
-            border-color: var(--warm-orange);
-            transform: translateY(-2px);
-        }
+        .category-btn:hover { border-color: var(--warm-orange); transform: translateY(-2px); }
 
         .category-btn.active {
             background: var(--warm-orange);
@@ -400,51 +253,9 @@
             background: var(--light-gray);
         }
 
-        .category-btn.active .category-img {
-            border: 2px solid white;
-        }
-
-        .category-emoji {
-            font-size: 32px;
-            line-height: 1;
-        }
-
-        .category-name {
-            font-size: 13px;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        @media (max-width: 768px) {
-            .categories-section {
-                padding: 12px;
-            }
-
-            .categories-scroll {
-                gap: 8px;
-                padding: 6px 0;
-            }
-
-            .category-btn {
-                min-width: 70px;
-                padding: 8px 12px;
-                gap: 6px;
-                border-radius: 12px;
-            }
-
-            .category-img {
-                width: 36px;
-                height: 36px;
-            }
-
-            .category-emoji {
-                font-size: 24px;
-            }
-
-            .category-name {
-                font-size: 11px;
-            }
-        }
+        .category-btn.active .category-img { border: 2px solid white; }
+        .category-emoji { font-size: 32px; line-height: 1; }
+        .category-name { font-size: 13px; font-weight: 600; white-space: nowrap; }
 
         .recipes-section {
             padding: 0 20px 40px;
@@ -467,47 +278,12 @@
             gap: 8px;
         }
 
-        .recipe-count {
-            color: var(--text-gray);
-            font-size: 14px;
-            font-weight: 400;
-        }
+        .recipe-count { color: var(--text-gray); font-size: 14px; font-weight: 400; }
 
         .recipes-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 24px;
-        }
-
-        @media (max-width: 768px) {
-            .recipes-section {
-                padding: 0 12px 30px;
-            }
-
-            .section-header {
-                margin-bottom: 12px;
-            }
-
-            .section-title {
-                font-size: 18px;
-                gap: 6px;
-            }
-
-            .recipe-count {
-                font-size: 13px;
-            }
-
-            .recipes-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-                gap: 12px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .recipes-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
         }
 
         .recipe-card {
@@ -519,10 +295,7 @@
             transition: all 0.3s;
         }
 
-        .recipe-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-hover);
-        }
+        .recipe-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
 
         .recipe-thumbnail {
             position: relative;
@@ -539,9 +312,7 @@
             transition: transform 0.3s;
         }
 
-        .recipe-card:hover .recipe-thumbnail img {
-            transform: scale(1.05);
-        }
+        .recipe-card:hover .recipe-thumbnail img { transform: scale(1.05); }
 
         .recipe-thumbnail-emoji {
             width: 100%;
@@ -580,9 +351,25 @@
             gap: 4px;
         }
 
-        .recipe-info {
-            padding: 16px;
+        /* ⭐ 카드 별점 뱃지 (신규) */
+        .recipe-rating-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 3px;
         }
+
+        .recipe-rating-badge .star-icon { color: var(--star-color); }
+
+        .recipe-info { padding: 16px; }
 
         .recipe-category-tag {
             display: inline-block;
@@ -595,12 +382,7 @@
             margin-bottom: 8px;
         }
 
-        .recipe-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            line-height: 1.3;
-        }
+        .recipe-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
 
         .recipe-desc {
             color: var(--text-gray);
@@ -619,6 +401,7 @@
             margin-top: 12px;
             padding-top: 12px;
             border-top: 1px solid #eee;
+            flex-wrap: wrap;
         }
 
         .recipe-meta-item {
@@ -629,45 +412,22 @@
             color: var(--text-gray);
         }
 
-        .recipe-meta-item.products {
-            color: var(--coupang-blue);
+        .recipe-meta-item.products { color: var(--coupang-blue); font-weight: 600; }
+
+        /* ⭐ 카드 내 별점 표시 (신규) */
+        .recipe-meta-item.rating {
+            color: var(--text-dark);
             font-weight: 600;
         }
 
-        @media (max-width: 768px) {
-            .recipe-thumbnail {
-                height: 150px;
-            }
+        .recipe-meta-item.rating .stars-small { color: var(--star-color); font-size: 13px; letter-spacing: -1px; }
+        .recipe-meta-item.rating .review-cnt { color: var(--text-gray); font-weight: 400; font-size: 11px; }
 
-            .recipe-info {
-                padding: 12px;
-            }
-
-            .recipe-title {
-                font-size: 16px;
-            }
-
-            .recipe-desc {
-                font-size: 13px;
-            }
-
-            .recipe-meta {
-                gap: 8px;
-                margin-top: 10px;
-                padding-top: 10px;
-            }
-
-            .recipe-meta-item {
-                font-size: 11px;
-            }
-        }
-
+        /* 모달 */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0,0,0,0.6);
             backdrop-filter: blur(4px);
             z-index: 1000;
@@ -676,15 +436,11 @@
             transition: all 0.3s;
         }
 
-        .modal-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
+        .modal-overlay.show { opacity: 1; visibility: visible; }
 
         .modal {
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%) scale(0.9);
             width: 95%;
             max-width: 800px;
@@ -706,10 +462,8 @@
 
         .modal-close {
             position: absolute;
-            top: 16px;
-            right: 16px;
-            width: 40px;
-            height: 40px;
+            top: 16px; right: 16px;
+            width: 40px; height: 40px;
             background: rgba(0,0,0,0.5);
             border: none;
             border-radius: 50%;
@@ -723,14 +477,9 @@
             transition: background 0.2s;
         }
 
-        .modal-close:hover {
-            background: rgba(0,0,0,0.7);
-        }
+        .modal-close:hover { background: rgba(0,0,0,0.7); }
 
-        .modal-content {
-            max-height: 90vh;
-            overflow-y: auto;
-        }
+        .modal-content { max-height: 90vh; overflow-y: auto; }
 
         .modal-video {
             position: relative;
@@ -741,18 +490,14 @@
 
         .modal-video iframe {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
         }
 
         .modal-video-placeholder {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -760,15 +505,8 @@
             color: white;
         }
 
-        .modal-info {
-            padding: 24px;
-        }
-
-        .modal-title {
-            font-size: 24px;
-            font-weight: 900;
-            margin-bottom: 8px;
-        }
+        .modal-info { padding: 24px; }
+        .modal-title { font-size: 24px; font-weight: 900; margin-bottom: 8px; }
 
         .modal-desc {
             color: var(--text-gray);
@@ -796,28 +534,12 @@
             transition: all 0.2s;
         }
 
-        .modal-link.youtube {
-            background: #ff0000;
-            color: white;
-        }
+        .modal-link.youtube { background: #ff0000; color: white; }
+        .modal-link.youtube:hover { background: #cc0000; }
+        .modal-link.blog { background: var(--warm-orange); color: white; }
+        .modal-link.blog:hover { background: #e55a2b; }
 
-        .modal-link.youtube:hover {
-            background: #cc0000;
-        }
-
-        .modal-link.blog {
-            background: var(--warm-orange);
-            color: white;
-        }
-
-        .modal-link.blog:hover {
-            background: #e55a2b;
-        }
-
-        .products-section {
-            border-top: 1px solid #eee;
-            padding-top: 24px;
-        }
+        .products-section { border-top: 1px solid #eee; padding-top: 24px; }
 
         .products-header {
             display: flex;
@@ -826,10 +548,7 @@
             margin-bottom: 16px;
         }
 
-        .products-title {
-            font-size: 18px;
-            font-weight: 700;
-        }
+        .products-title { font-size: 18px; font-weight: 700; }
 
         .products-badge {
             background: var(--coupang-blue);
@@ -859,14 +578,10 @@
             text-align: center;
         }
 
-        .product-card:hover {
-            background: #e8f4ff;
-            transform: translateY(-2px);
-        }
+        .product-card:hover { background: #e8f4ff; transform: translateY(-2px); }
 
         .product-img {
-            width: 80px;
-            height: 80px;
+            width: 80px; height: 80px;
             border-radius: 8px;
             object-fit: cover;
             background: white;
@@ -874,8 +589,7 @@
         }
 
         .product-emoji {
-            width: 80px;
-            height: 80px;
+            width: 80px; height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -885,56 +599,214 @@
             margin-bottom: 10px;
         }
 
-        .product-name {
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 4px;
-            line-height: 1.3;
-        }
+        .product-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; line-height: 1.3; }
+        .product-price { font-size: 14px; font-weight: 700; color: var(--warm-red); }
+        .product-shop { font-size: 11px; color: var(--coupang-blue); margin-top: 4px; }
 
-        .product-price {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--warm-red);
-        }
-
-        .product-shop {
-            font-size: 11px;
-            color: var(--coupang-blue);
+        /* ============================================
+           ⭐ 리뷰 섹션 스타일 (신규)
+           ============================================ */
+        .review-section {
+            border-top: 1px solid #eee;
+            padding-top: 24px;
             margin-top: 4px;
         }
 
-        @media (max-width: 768px) {
-            .modal-info {
-                padding: 16px;
-            }
-
-            .modal-title {
-                font-size: 20px;
-            }
-
-            .modal-links {
-                flex-direction: column;
-            }
-
-            .modal-link {
-                justify-content: center;
-            }
-
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .review-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
-        .loading {
+        .review-title-group { display: flex; align-items: center; gap: 12px; }
+        .review-title { font-size: 18px; font-weight: 700; }
+
+        .review-avg-score {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #fff9e6;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid #ffe082;
+        }
+
+        .review-avg-score .avg-num {
+            font-size: 20px;
+            font-weight: 900;
+            color: #f57f17;
+        }
+
+        .review-avg-score .stars-display { color: var(--star-color); font-size: 16px; }
+        .review-avg-score .review-total { font-size: 12px; color: var(--text-gray); }
+
+        /* 리뷰 작성 폼 */
+        .review-form-wrap {
+            background: #fff9f5;
+            border: 1.5px solid #ffe0d0;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .review-form-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: var(--warm-orange);
+        }
+
+        /* 별점 선택 */
+        .star-rating-input {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .star-rating-input .label { font-size: 14px; font-weight: 600; color: var(--text-dark); min-width: 40px; }
+
+        .stars-select {
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 2px;
+        }
+
+        .stars-select input { display: none; }
+
+        .stars-select label {
+            font-size: 28px;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.15s;
+            line-height: 1;
+        }
+
+        .stars-select input:checked ~ label,
+        .stars-select label:hover,
+        .stars-select label:hover ~ label {
+            color: var(--star-color);
+        }
+
+        .review-form-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .review-nickname-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1.5px solid #eee;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .review-nickname-input:focus { outline: none; border-color: var(--warm-orange); }
+
+        .review-textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid #eee;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.2s;
+            margin-bottom: 12px;
+        }
+
+        .review-textarea:focus { outline: none; border-color: var(--warm-orange); }
+
+        .review-submit-btn {
+            background: var(--warm-orange);
+            color: white;
+            border: none;
+            padding: 11px 28px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .review-submit-btn:hover { background: #e55a2b; }
+        .review-submit-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+        .review-message {
+            margin-top: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .review-message.success { background: #e8f5e9; color: #2e7d32; display: block; }
+        .review-message.error { background: #fdecea; color: #c62828; display: block; }
+
+        /* 리뷰 목록 */
+        .review-list { display: flex; flex-direction: column; gap: 14px; }
+
+        .review-item {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: var(--radius-sm);
+            padding: 16px;
+        }
+
+        .review-item-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .review-item-left { display: flex; align-items: center; gap: 10px; }
+
+        .review-nickname {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .review-stars { color: var(--star-color); font-size: 15px; letter-spacing: -1px; }
+        .review-date { font-size: 12px; color: var(--text-gray); }
+        .review-content { font-size: 14px; color: var(--text-dark); line-height: 1.6; }
+
+        .review-empty {
             text-align: center;
-            padding: 60px 20px;
+            padding: 30px;
             color: var(--text-gray);
+            font-size: 14px;
+            background: #fafafa;
+            border-radius: var(--radius-sm);
         }
+
+        .review-loading {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        /* 별점 렌더 */
+        .star-filled { color: var(--star-color); }
+        .star-empty { color: #ddd; }
+
+        /* 로딩/에러 */
+        .loading { text-align: center; padding: 60px 20px; color: var(--text-gray); }
 
         .loading-spinner {
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             border: 3px solid #eee;
             border-top-color: var(--warm-orange);
             border-radius: 50%;
@@ -942,69 +814,35 @@
             margin: 0 auto 16px;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-gray);
-        }
+        .empty-state { text-align: center; padding: 60px 20px; color: var(--text-gray); }
+        .empty-state-emoji { font-size: 64px; margin-bottom: 16px; }
+        .empty-state-text { font-size: 16px; }
 
-        .empty-state-emoji {
-            font-size: 64px;
-            margin-bottom: 16px;
-        }
-
-        .empty-state-text {
-            font-size: 16px;
-        }
-
+        /* 히어로 */
         .hero {
             position: relative;
-            width: 100%;
-            height: 300px;
+            width: 100%; height: 300px;
             overflow: hidden;
             background: linear-gradient(135deg, #fff5f0 0%, #ffe8dc 100%);
         }
 
-        .hero-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .hero-image { width: 100%; height: 100%; object-fit: cover; }
 
         .hero-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
             display: flex;
             align-items: center;
             padding: 0 40px;
         }
 
-        .hero-content {
-            color: white;
-            max-width: 500px;
-        }
-
-        .hero-title {
-            font-size: 36px;
-            font-weight: 900;
-            margin-bottom: 12px;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-        }
-
-        .hero-subtitle {
-            font-size: 18px;
-            opacity: 0.95;
-            line-height: 1.6;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
-        }
+        .hero-content { color: white; max-width: 500px; }
+        .hero-title { font-size: 36px; font-weight: 900; margin-bottom: 12px; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
+        .hero-subtitle { font-size: 18px; opacity: 0.95; line-height: 1.6; text-shadow: 1px 1px 4px rgba(0,0,0,0.3); }
 
         .hero-cta {
             display: inline-block;
@@ -1019,37 +857,9 @@
             transition: all 0.3s;
         }
 
-        .hero-cta:hover {
-            background: var(--warm-red);
-            transform: translateY(-2px);
-        }
+        .hero-cta:hover { background: var(--warm-red); transform: translateY(-2px); }
 
-        @media (max-width: 768px) {
-            .hero {
-                height: 180px;
-            }
-
-            .hero-overlay {
-                padding: 0 16px;
-                background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
-            }
-
-            .hero-title {
-                font-size: 20px;
-                margin-bottom: 8px;
-            }
-
-            .hero-subtitle {
-                font-size: 12px;
-            }
-
-            .hero-cta {
-                padding: 8px 16px;
-                font-size: 12px;
-                margin-top: 12px;
-            }
-        }
-
+        /* 푸터 */
         .footer {
             background: var(--coupang-dark);
             color: #999;
@@ -1058,17 +868,13 @@
             margin-top: 40px;
         }
 
-        .footer-text {
-            font-size: 12px;
-            line-height: 1.8;
-        }
+        .footer-text { font-size: 12px; line-height: 1.8; }
 
+        /* 카카오 플로팅 */
         .kakao-float-btn {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 60px;
-            height: 60px;
+            bottom: 24px; right: 24px;
+            width: 60px; height: 60px;
             background: #FEE500;
             border-radius: 50%;
             display: flex;
@@ -1081,28 +887,69 @@
             text-decoration: none;
         }
 
-        .kakao-float-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
+        .kakao-float-btn:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+        .kakao-float-btn img { width: 36px; height: 36px; }
 
-        .kakao-float-btn img {
-            width: 36px;
-            height: 36px;
-        }
-
+        /* ===== 반응형 ===== */
         @media (max-width: 768px) {
-            .kakao-float-btn {
-                bottom: 16px;
-                right: 16px;
-                width: 56px;
-                height: 56px;
-            }
-            
-            .kakao-float-btn img {
-                width: 32px;
-                height: 32px;
-            }
+            .header-top { padding: 6px 12px; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 4px; }
+            .coupang-logo { font-size: 14px; }
+            .coupang-logo-text { padding: 2px 8px; font-size: 12px; }
+            .header-slogan { font-size: 10px; text-align: center; width: 100%; }
+            .stats-bar { gap: 6px; padding: 8px 12px; }
+            .stats-row { gap: 8px; }
+            .stat-item { font-size: 11px; gap: 4px; }
+            .stat-item .stat-icon { font-size: 14px; }
+            .stat-divider { height: 12px; }
+            .popular-recipes { gap: 6px; }
+            .popular-recipes .popular-label { font-size: 11px; }
+            .popular-recipes .popular-list { gap: 6px; }
+            .popular-recipes .popular-item { padding: 3px 8px; font-size: 11px; }
+            .header-main { padding: 10px 12px; }
+            .site-title { margin-bottom: 10px; }
+            .site-title h1 { font-size: 20px; gap: 6px; }
+            .site-title p { font-size: 12px; margin-top: 2px; }
+            .search-container { max-width: 100%; }
+            .search-input { padding: 10px 40px 10px 14px; font-size: 14px; border-radius: 30px; }
+            .search-icon { right: 14px; font-size: 16px; }
+            .search-clear { right: 38px; width: 20px; height: 20px; font-size: 12px; }
+            .categories-section { padding: 12px; }
+            .categories-scroll { gap: 8px; padding: 6px 0; }
+            .category-btn { min-width: 70px; padding: 8px 12px; gap: 6px; border-radius: 12px; }
+            .category-img { width: 36px; height: 36px; }
+            .category-emoji { font-size: 24px; }
+            .category-name { font-size: 11px; }
+            .recipes-section { padding: 0 12px 30px; }
+            .section-header { margin-bottom: 12px; }
+            .section-title { font-size: 18px; gap: 6px; }
+            .recipe-count { font-size: 13px; }
+            .recipes-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+            .recipe-thumbnail { height: 150px; }
+            .recipe-info { padding: 12px; }
+            .recipe-title { font-size: 16px; }
+            .recipe-desc { font-size: 13px; }
+            .recipe-meta { gap: 8px; margin-top: 10px; padding-top: 10px; }
+            .recipe-meta-item { font-size: 11px; }
+            .modal-info { padding: 16px; }
+            .modal-title { font-size: 20px; }
+            .modal-links { flex-direction: column; }
+            .modal-link { justify-content: center; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero { height: 180px; }
+            .hero-overlay { padding: 0 16px; background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%); }
+            .hero-title { font-size: 20px; margin-bottom: 8px; }
+            .hero-subtitle { font-size: 12px; }
+            .hero-cta { padding: 8px 16px; font-size: 12px; margin-top: 12px; }
+            .kakao-float-btn { bottom: 16px; right: 16px; width: 56px; height: 56px; }
+            .kakao-float-btn img { width: 32px; height: 32px; }
+            /* 리뷰 모바일 */
+            .review-form-wrap { padding: 14px; }
+            .stars-select label { font-size: 24px; }
+            .review-form-row { flex-direction: column; }
+        }
+
+        @media (max-width: 480px) {
+            .recipes-grid { grid-template-columns: 1fr; gap: 12px; }
         }
     </style>
 </head>
@@ -1219,15 +1066,33 @@
         let searchKeyword = '';
         let isEngaged = false;
 
+        // ============================================
+        // ⭐ 별점 렌더 헬퍼
+        // ============================================
+        function renderStars(rating, total = 5) {
+            let html = '';
+            for (let i = 1; i <= total; i++) {
+                html += i <= Math.round(rating)
+                    ? '<span class="star-filled">★</span>'
+                    : '<span class="star-empty">★</span>';
+            }
+            return html;
+        }
+
+        function renderStarsText(rating) {
+            const filled = Math.round(rating);
+            return '★'.repeat(filled) + '☆'.repeat(5 - filled);
+        }
+
+        // ============================================
+        // 방문/클릭 기록
+        // ============================================
         function getVisitorType() {
             const visited = localStorage.getItem('redditplus_visited');
-            if (visited) {
-                return 'returning';
-            } else {
-                localStorage.setItem('redditplus_visited', 'true');
-                localStorage.setItem('redditplus_firstVisit', new Date().toISOString());
-                return 'new';
-            }
+            if (visited) return 'returning';
+            localStorage.setItem('redditplus_visited', 'true');
+            localStorage.setItem('redditplus_firstVisit', new Date().toISOString());
+            return 'new';
         }
 
         function detectSource() {
@@ -1235,16 +1100,16 @@
             const urlParams = new URLSearchParams(window.location.search);
             const utmSource = urlParams.get('utm_source');
             if (utmSource) {
-                const source = utmSource.toLowerCase();
-                if (source.includes('youtube')) return 'youtube';
-                if (source.includes('naver')) return 'naver';
-                if (source.includes('google')) return 'google';
-                if (source.includes('kakaochat')) return 'kakaochat';
-                if (source.includes('kakao')) return 'kakao';
-                if (source.includes('friend')) return 'friend';
-                if (source.includes('tistory')) return 'tistory';
-                if (source.includes('momcafe')) return 'momcafe';
-                if (source.includes('instagram')) return 'instagram';
+                const s = utmSource.toLowerCase();
+                if (s.includes('youtube')) return 'youtube';
+                if (s.includes('naver')) return 'naver';
+                if (s.includes('google')) return 'google';
+                if (s.includes('kakaochat')) return 'kakaochat';
+                if (s.includes('kakao')) return 'kakao';
+                if (s.includes('friend')) return 'friend';
+                if (s.includes('tistory')) return 'tistory';
+                if (s.includes('momcafe')) return 'momcafe';
+                if (s.includes('instagram')) return 'instagram';
                 return 'other';
             }
             if (!referrer) return 'direct';
@@ -1262,49 +1127,34 @@
                 const source = detectSource();
                 const visitorType = getVisitorType();
                 await fetch(`${STATS_API_URL}?action=visit&source=${source}&visitorType=${visitorType}`, { mode: 'no-cors' });
-                console.log('방문 기록 완료 - 유입경로:', source, '방문자유형:', visitorType);
-            } catch (error) {
-                console.error('방문 기록 실패:', error);
-            }
+            } catch (e) { console.error('방문 기록 실패:', e); }
         }
 
         function setupBounceTracking() {
-            setTimeout(() => {
-                isEngaged = true;
-                console.log('사용자 참여 확인 (10초 이상 체류)');
-            }, 10000);
-
+            setTimeout(() => { isEngaged = true; }, 10000);
             window.addEventListener('beforeunload', () => {
-                if (!isEngaged) {
-                    navigator.sendBeacon(`${STATS_API_URL}?action=bounce`);
-                    console.log('이탈자 기록');
-                }
+                if (!isEngaged) navigator.sendBeacon(`${STATS_API_URL}?action=bounce`);
             });
-
-            ['click', 'scroll', 'keydown'].forEach(event => {
-                document.addEventListener(event, () => { isEngaged = true; }, { once: true });
+            ['click', 'scroll', 'keydown'].forEach(ev => {
+                document.addEventListener(ev, () => { isEngaged = true; }, { once: true });
             });
         }
 
         async function recordClick(recipeId, recipeTitle) {
             try {
-                const encodedTitle = encodeURIComponent(recipeTitle || '');
-                await fetch(`${STATS_API_URL}?action=click&id=${recipeId}&title=${encodedTitle}`, { mode: 'no-cors' });
-            } catch (error) {
-                console.error('클릭 기록 실패:', error);
-            }
+                await fetch(`${STATS_API_URL}?action=click&id=${recipeId}&title=${encodeURIComponent(recipeTitle || '')}`, { mode: 'no-cors' });
+            } catch (e) { console.error('클릭 기록 실패:', e); }
         }
 
         async function recordProductClick(productName, recipeId, link) {
             try {
-                const encodedName = encodeURIComponent(productName || '');
-                const encodedLink = encodeURIComponent(link || '');
-                await fetch(`${STATS_API_URL}?action=productClick&name=${encodedName}&recipeId=${recipeId}&link=${encodedLink}`, { mode: 'no-cors' });
-            } catch (error) {
-                console.error('상품 클릭 기록 실패:', error);
-            }
+                await fetch(`${STATS_API_URL}?action=productClick&name=${encodeURIComponent(productName||'')}&recipeId=${recipeId}&link=${encodeURIComponent(link||'')}`, { mode: 'no-cors' });
+            } catch (e) { console.error('상품 클릭 기록 실패:', e); }
         }
 
+        // ============================================
+        // 통계 로드
+        // ============================================
         async function loadStats() {
             try {
                 const response = await fetch(`${STATS_API_URL}?action=getStats`);
@@ -1312,28 +1162,25 @@
                 document.getElementById('todayVisits').textContent = (data.todayVisits || 0).toLocaleString();
                 document.getElementById('totalVisits').textContent = (data.totalVisits || 0).toLocaleString();
                 const popularList = document.getElementById('popularList');
-                if (data.topRecipes && data.topRecipes.length > 0) {
-                    const hasClicks = data.topRecipes.some(r => r.clicks > 0);
-                    if (hasClicks) {
-                        popularList.innerHTML = data.topRecipes.filter(r => r.clicks > 0)
-                            .map(r => `<span class="popular-item" data-id="${r.id}">${r.title}</span>`).join('');
-                        popularList.querySelectorAll('.popular-item').forEach(item => {
-                            item.addEventListener('click', () => openModal(item.dataset.id));
-                        });
-                    } else {
-                        popularList.innerHTML = '<span class="popular-item">쿠팡쇼핑</span><span class="popular-item">김치찌개</span><span class="popular-item">된장찌개</span>';
-                    }
+                if (data.topRecipes && data.topRecipes.some(r => r.clicks > 0)) {
+                    popularList.innerHTML = data.topRecipes.filter(r => r.clicks > 0)
+                        .map(r => `<span class="popular-item" data-id="${r.id}">${r.title}</span>`).join('');
+                    popularList.querySelectorAll('.popular-item').forEach(item => {
+                        item.addEventListener('click', () => openModal(item.dataset.id));
+                    });
                 } else {
                     popularList.innerHTML = '<span class="popular-item">쿠팡쇼핑</span><span class="popular-item">김치찌개</span><span class="popular-item">된장찌개</span>';
                 }
-            } catch (error) {
-                console.error('통계 로드 실패:', error);
+            } catch (e) {
                 document.getElementById('todayVisits').textContent = '-';
                 document.getElementById('totalVisits').textContent = '-';
                 document.getElementById('popularList').innerHTML = '<span class="popular-item">쿠팡쇼핑</span><span class="popular-item">김치찌개</span><span class="popular-item">된장찌개</span>';
             }
         }
 
+        // ============================================
+        // 시트 데이터 로드
+        // ============================================
         async function fetchSheetData(sheetName) {
             const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
             try {
@@ -1353,19 +1200,18 @@
                     headers = json.table.cols.map(col => (col.label || '').trim());
                     dataRows = json.table.rows;
                 }
-                const rows = dataRows.map(row => {
+                return dataRows.map(row => {
                     const obj = {};
                     if (row.c) {
-                        row.c.forEach((cell, index) => {
-                            const header = headers[index];
-                            if (header) obj[header] = cell ? (cell.v || '') : '';
+                        row.c.forEach((cell, i) => {
+                            const h = headers[i];
+                            if (h) obj[h] = cell ? (cell.v || '') : '';
                         });
                     }
                     return obj;
-                });
-                return rows.filter(row => Object.values(row).some(v => v !== ''));
-            } catch (error) {
-                console.error(`시트 "${sheetName}" 로드 실패:`, error);
+                }).filter(row => Object.values(row).some(v => v !== ''));
+            } catch (e) {
+                console.error(`시트 "${sheetName}" 로드 실패:`, e);
                 return [];
             }
         }
@@ -1382,12 +1228,15 @@
                 productsData = products;
                 renderCategories();
                 renderRecipes();
-            } catch (error) {
-                console.error('데이터 로드 실패:', error);
+            } catch (e) {
+                console.error('데이터 로드 실패:', e);
                 showError();
             }
         }
 
+        // ============================================
+        // 카테고리 렌더
+        // ============================================
         function renderCategories() {
             const container = document.getElementById('categoriesContainer');
             let html = `<button class="category-btn active" data-category="전체"><span class="category-emoji">📋</span><span class="category-name">전체</span></button>`;
@@ -1396,7 +1245,9 @@
                 const imgUrl = cat['이미지URL'] || cat['이미지'] || '';
                 const icon = cat['아이콘'] || cat['이모지'] || '🍽️';
                 if (!name) return;
-                const imgHtml = imgUrl ? `<img src="${imgUrl}" alt="${name}" class="category-img" onerror="this.outerHTML='<span class=\\'category-emoji\\'>${icon}</span>'">` : `<span class="category-emoji">${icon}</span>`;
+                const imgHtml = imgUrl
+                    ? `<img src="${imgUrl}" alt="${name}" class="category-img" onerror="this.outerHTML='<span class=\\'category-emoji\\'>${icon}</span>'">`
+                    : `<span class="category-emoji">${icon}</span>`;
                 html += `<button class="category-btn" data-category="${name}">${imgHtml}<span class="category-name">${name}</span></button>`;
             });
             container.innerHTML = html;
@@ -1410,6 +1261,9 @@
             });
         }
 
+        // ============================================
+        // 레시피 카드 렌더 (별점 표시 추가)
+        // ============================================
         function renderRecipes() {
             const container = document.getElementById('recipesContainer');
             const countEl = document.getElementById('recipeCount');
@@ -1419,8 +1273,8 @@
                 const category = recipe['카테고리'] || '';
                 if (currentCategory !== '전체' && category !== currentCategory) return false;
                 if (searchKeyword) {
-                    const keyword = searchKeyword.toLowerCase();
-                    return title.toLowerCase().includes(keyword) || desc.toLowerCase().includes(keyword);
+                    const kw = searchKeyword.toLowerCase();
+                    return title.toLowerCase().includes(kw) || desc.toLowerCase().includes(kw);
                 }
                 return true;
             });
@@ -1439,22 +1293,59 @@
                 const emoji = recipe['이모지'] || '🍽️';
                 const duration = recipe['영상길이'] || '';
                 const clicks = recipe['클릭수'] || 0;
+                // ⭐ 별점/리뷰수 (레시피 시트 J열, K열)
+                const avgRating = parseFloat(recipe['평균별점'] || recipe['별점'] || 0);
+                const reviewCount = parseInt(recipe['리뷰수'] || 0);
+
                 const productCount = productsData.filter(p => p['레시피ID'] == id).length;
-                const thumbnailHtml = imgUrl ? `<img src="${imgUrl}" alt="${title}" onerror="this.parentElement.innerHTML='<div class=\\'recipe-thumbnail-emoji\\'>${emoji}</div>'">` : `<div class="recipe-thumbnail-emoji">${emoji}</div>`;
+                const thumbnailHtml = imgUrl
+                    ? `<img src="${imgUrl}" alt="${title}" onerror="this.parentElement.innerHTML='<div class=\\'recipe-thumbnail-emoji\\'>${emoji}</div>'">`
+                    : `<div class="recipe-thumbnail-emoji">${emoji}</div>`;
                 const clicksBadgeHtml = clicks >= 10 ? `<span class="recipe-clicks-badge">👀 ${clicks}</span>` : '';
-                html += `<article class="recipe-card" data-id="${id}" data-title="${title}"><div class="recipe-thumbnail">${thumbnailHtml}${clicksBadgeHtml}${duration ? `<span class="recipe-duration">⏱️ ${duration}</span>` : ''}</div><div class="recipe-info"><span class="recipe-category-tag">${category}</span><h3 class="recipe-title">${title}</h3><p class="recipe-desc">${desc}</p><div class="recipe-meta"><span class="recipe-meta-item">📺 영상</span><span class="recipe-meta-item">📝 블로그</span>${productCount > 0 ? `<span class="recipe-meta-item products">🛒 재료 ${productCount}개</span>` : ''}</div></div></article>`;
+
+                // ⭐ 카드 썸네일 위 별점 뱃지
+                const ratingBadgeHtml = avgRating > 0
+                    ? `<span class="recipe-rating-badge"><span class="star-icon">★</span>${avgRating}</span>`
+                    : '';
+
+                // ⭐ 카드 하단 별점 메타
+                const ratingMetaHtml = reviewCount > 0
+                    ? `<span class="recipe-meta-item rating"><span class="stars-small">${renderStarsText(avgRating)}</span> <span class="review-cnt">(${reviewCount})</span></span>`
+                    : '';
+
+                html += `
+                <article class="recipe-card" data-id="${id}" data-title="${title}">
+                    <div class="recipe-thumbnail">
+                        ${thumbnailHtml}
+                        ${clicksBadgeHtml}
+                        ${ratingBadgeHtml}
+                        ${duration ? `<span class="recipe-duration">⏱️ ${duration}</span>` : ''}
+                    </div>
+                    <div class="recipe-info">
+                        <span class="recipe-category-tag">${category}</span>
+                        <h3 class="recipe-title">${title}</h3>
+                        <p class="recipe-desc">${desc}</p>
+                        <div class="recipe-meta">
+                            <span class="recipe-meta-item">📺 영상</span>
+                            <span class="recipe-meta-item">📝 블로그</span>
+                            ${productCount > 0 ? `<span class="recipe-meta-item products">🛒 재료 ${productCount}개</span>` : ''}
+                            ${ratingMetaHtml}
+                        </div>
+                    </div>
+                </article>`;
             });
             container.innerHTML = html;
             container.querySelectorAll('.recipe-card').forEach(card => {
                 card.addEventListener('click', () => {
-                    const id = card.dataset.id;
-                    const title = card.dataset.title;
-                    recordClick(id, title);
-                    openModal(id);
+                    recordClick(card.dataset.id, card.dataset.title);
+                    openModal(card.dataset.id);
                 });
             });
         }
 
+        // ============================================
+        // 모달 열기 (리뷰 섹션 추가)
+        // ============================================
         function openModal(recipeId) {
             const recipe = recipesData.find(r => r['ID'] == recipeId);
             if (!recipe) return;
@@ -1470,25 +1361,206 @@
             const products = productsData.filter(p => p['레시피ID'] == recipeId);
             let productsHtml = '';
             if (products.length > 0) {
-                productsHtml = `<div class="products-section"><div class="products-header"><span class="products-title">🛒 필요한 재료</span><span class="products-badge">${products.length}개 상품</span></div><div class="products-grid">${products.map(p => {
-                    const name = p['상품명'] || '';
-                    const price = p['가격'] || '';
-                    const imgUrl = p['이미지URL'] || p['이미지'] || '';
-                    const emoji = p['이모지'] || '🛍️';
-                    const shop = p['쇼핑몰'] || '쿠팡';
-                    const link = p['쇼핑링크'] || p['링크'] || '#';
-                    const safeName = name.replace(/'/g, "\\'").replace(/"/g, '\\"');
-                    const safeLink = link.replace(/'/g, "\\'").replace(/"/g, '\\"');
-                    const imgHtml = imgUrl ? `<img src="${imgUrl}" alt="${name}" class="product-img" onerror="this.outerHTML='<div class=\\'product-emoji\\'>${emoji}</div>'">` : `<div class="product-emoji">${emoji}</div>`;
-                    return `<a href="${link}" target="_blank" class="product-card" onclick="recordProductClick('${safeName}', '${recipeId}', '${safeLink}')">${imgHtml}<div class="product-name">${name}</div>${price ? `<div class="product-price">${price}</div>` : ''}<div class="product-shop">${shop}</div></a>`;
-                }).join('')}</div></div>`;
+                productsHtml = `
+                <div class="products-section">
+                    <div class="products-header">
+                        <span class="products-title">🛒 필요한 재료</span>
+                        <span class="products-badge">${products.length}개 상품</span>
+                    </div>
+                    <div class="products-grid">
+                        ${products.map(p => {
+                            const name = p['상품명'] || '';
+                            const price = p['가격'] || '';
+                            const imgUrl = p['이미지URL'] || p['이미지'] || '';
+                            const emoji = p['이모지'] || '🛍️';
+                            const shop = p['쇼핑몰'] || '쿠팡';
+                            const link = p['쇼핑링크'] || p['링크'] || '#';
+                            const safeName = name.replace(/'/g, "\\'").replace(/"/g, '\\"');
+                            const safeLink = link.replace(/'/g, "\\'").replace(/"/g, '\\"');
+                            const imgHtml = imgUrl
+                                ? `<img src="${imgUrl}" alt="${name}" class="product-img" onerror="this.outerHTML='<div class=\\'product-emoji\\'>${emoji}</div>'">`
+                                : `<div class="product-emoji">${emoji}</div>`;
+                            return `<a href="${link}" target="_blank" class="product-card" onclick="recordProductClick('${safeName}','${recipeId}','${safeLink}')">${imgHtml}<div class="product-name">${name}</div>${price ? `<div class="product-price">${price}</div>` : ''}<div class="product-shop">${shop}</div></a>`;
+                        }).join('')}
+                    </div>
+                </div>`;
             }
-            document.getElementById('modalContent').innerHTML = `<div class="modal-video">${youtubeId ? `<iframe src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allowfullscreen></iframe>` : `<div class="modal-video-placeholder">📺 영상 준비 중</div>`}</div><div class="modal-info"><h2 class="modal-title">${title}</h2><p class="modal-desc">${desc}</p><div class="modal-links">${youtubeUrl ? `<a href="${youtubeUrl}" target="_blank" class="modal-link youtube">▶️ 유튜브에서 보기</a>` : ''}${blogUrl ? `<a href="${blogUrl}" target="_blank" class="modal-link blog">📝 블로그 글 보기</a>` : ''}</div>${productsHtml}</div>`;
+
+            // ⭐ 리뷰 섹션 HTML
+            const reviewSectionHtml = `
+            <div class="review-section" id="reviewSection">
+                <div class="review-header">
+                    <div class="review-title-group">
+                        <span class="review-title">⭐ 후기</span>
+                        <div class="review-avg-score" id="reviewAvgScore">
+                            <span class="stars-display">★★★★★</span>
+                            <span class="avg-num" id="avgRatingNum">-</span>
+                            <span class="review-total" id="reviewTotalNum"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 리뷰 작성 폼 -->
+                <div class="review-form-wrap">
+                    <div class="review-form-title">✏️ 후기 작성하기</div>
+                    <div class="star-rating-input">
+                        <span class="label">별점</span>
+                        <div class="stars-select" id="starSelect">
+                            <input type="radio" name="star" id="s5" value="5"><label for="s5">★</label>
+                            <input type="radio" name="star" id="s4" value="4"><label for="s4">★</label>
+                            <input type="radio" name="star" id="s3" value="3"><label for="s3">★</label>
+                            <input type="radio" name="star" id="s2" value="2"><label for="s2">★</label>
+                            <input type="radio" name="star" id="s1" value="1"><label for="s1">★</label>
+                        </div>
+                    </div>
+                    <div class="review-form-row">
+                        <input type="text" class="review-nickname-input" id="reviewNickname" placeholder="닉네임 (예: 요리왕)" maxlength="10">
+                    </div>
+                    <textarea class="review-textarea" id="reviewContent" placeholder="직접 만들어보셨나요? 솔직한 후기를 남겨주세요! (5자 이상)" maxlength="300"></textarea>
+                    <button class="review-submit-btn" id="reviewSubmitBtn" onclick="submitReview('${recipeId}')">후기 등록하기 ✍️</button>
+                    <div class="review-message" id="reviewMessage"></div>
+                </div>
+
+                <!-- 리뷰 목록 -->
+                <div class="review-list" id="reviewList">
+                    <div class="review-loading">후기 불러오는 중...</div>
+                </div>
+            </div>`;
+
+            document.getElementById('modalContent').innerHTML = `
+                <div class="modal-video">
+                    ${youtubeId
+                        ? `<iframe src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allowfullscreen></iframe>`
+                        : `<div class="modal-video-placeholder">📺 영상 준비 중</div>`}
+                </div>
+                <div class="modal-info">
+                    <h2 class="modal-title">${title}</h2>
+                    <p class="modal-desc">${desc}</p>
+                    <div class="modal-links">
+                        ${youtubeUrl ? `<a href="${youtubeUrl}" target="_blank" class="modal-link youtube">▶️ 유튜브에서 보기</a>` : ''}
+                        ${blogUrl ? `<a href="${blogUrl}" target="_blank" class="modal-link blog">📝 블로그 글 보기</a>` : ''}
+                    </div>
+                    ${productsHtml}
+                    ${reviewSectionHtml}
+                </div>`;
+
             document.getElementById('modalOverlay').classList.add('show');
             document.getElementById('modal').classList.add('show');
             document.body.style.overflow = 'hidden';
+
+            // 리뷰 불러오기
+            loadReviews(recipeId);
         }
 
+        // ============================================
+        // ⭐ 리뷰 불러오기
+        // ============================================
+        async function loadReviews(recipeId) {
+            try {
+                const response = await fetch(`${STATS_API_URL}?action=getReviews&recipeId=${recipeId}`);
+                const data = await response.json();
+                const listEl = document.getElementById('reviewList');
+                const avgNumEl = document.getElementById('avgRatingNum');
+                const totalNumEl = document.getElementById('reviewTotalNum');
+                const avgScoreEl = document.getElementById('reviewAvgScore');
+
+                if (data.reviewCount > 0) {
+                    // 평균 별점 업데이트
+                    if (avgNumEl) avgNumEl.textContent = data.avgRating;
+                    if (totalNumEl) totalNumEl.textContent = `(${data.reviewCount}개)`;
+                    if (avgScoreEl) {
+                        avgScoreEl.querySelector('.stars-display').innerHTML = renderStars(data.avgRating);
+                    }
+                    // 리뷰 목록
+                    if (listEl) {
+                        listEl.innerHTML = data.reviews.map(rv => `
+                        <div class="review-item">
+                            <div class="review-item-header">
+                                <div class="review-item-left">
+                                    <span class="review-nickname">${rv.nickname}</span>
+                                    <span class="review-stars">${renderStarsText(rv.rating)}</span>
+                                </div>
+                                <span class="review-date">${rv.date}</span>
+                            </div>
+                            <div class="review-content">${rv.content}</div>
+                        </div>`).join('');
+                    }
+                } else {
+                    if (avgNumEl) avgNumEl.textContent = '-';
+                    if (totalNumEl) totalNumEl.textContent = '(0개)';
+                    if (listEl) listEl.innerHTML = `<div class="review-empty">아직 후기가 없어요. 첫 후기를 남겨보세요! 🍳</div>`;
+                }
+            } catch (e) {
+                const listEl = document.getElementById('reviewList');
+                if (listEl) listEl.innerHTML = `<div class="review-empty">후기를 불러올 수 없습니다.</div>`;
+            }
+        }
+
+        // ============================================
+        // ⭐ 리뷰 제출
+        // ============================================
+        async function submitReview(recipeId) {
+            const ratingInput = document.querySelector('input[name="star"]:checked');
+            const nickname = document.getElementById('reviewNickname').value.trim();
+            const content = document.getElementById('reviewContent').value.trim();
+            const msgEl = document.getElementById('reviewMessage');
+            const btnEl = document.getElementById('reviewSubmitBtn');
+
+            // 유효성 검사
+            if (!ratingInput) {
+                showReviewMessage('별점을 선택해주세요! ⭐', 'error');
+                return;
+            }
+            if (content.length < 5) {
+                showReviewMessage('후기 내용을 5자 이상 입력해주세요.', 'error');
+                return;
+            }
+
+            btnEl.disabled = true;
+            btnEl.textContent = '등록 중...';
+
+            try {
+                const params = new URLSearchParams({
+                    action: 'submitReview',
+                    recipeId: recipeId,
+                    nickname: nickname || '익명',
+                    rating: ratingInput.value,
+                    content: content
+                });
+
+                const response = await fetch(`${STATS_API_URL}?${params.toString()}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    showReviewMessage('후기가 등록되었습니다! 감사합니다 🙏', 'success');
+                    // 폼 초기화
+                    document.querySelectorAll('input[name="star"]').forEach(r => r.checked = false);
+                    document.getElementById('reviewNickname').value = '';
+                    document.getElementById('reviewContent').value = '';
+                    // 목록 새로고침
+                    setTimeout(() => loadReviews(recipeId), 1000);
+                } else {
+                    showReviewMessage(data.error || '등록에 실패했습니다. 다시 시도해주세요.', 'error');
+                }
+            } catch (e) {
+                showReviewMessage('네트워크 오류가 발생했습니다. 다시 시도해주세요.', 'error');
+            } finally {
+                btnEl.disabled = false;
+                btnEl.textContent = '후기 등록하기 ✍️';
+            }
+        }
+
+        function showReviewMessage(msg, type) {
+            const el = document.getElementById('reviewMessage');
+            if (!el) return;
+            el.textContent = msg;
+            el.className = `review-message ${type}`;
+            setTimeout(() => { el.className = 'review-message'; }, 4000);
+        }
+
+        // ============================================
+        // 모달 닫기
+        // ============================================
         function closeModal() {
             document.getElementById('modalOverlay').classList.remove('show');
             document.getElementById('modal').classList.remove('show');
@@ -1502,14 +1574,18 @@
             document.getElementById('recipesContainer').innerHTML = '';
         }
 
+        // ============================================
+        // 초기화
+        // ============================================
         document.addEventListener('DOMContentLoaded', () => {
             recordVisit();
             setupBounceTracking();
             loadStats();
             loadAllData();
+
             const searchInput = document.getElementById('searchInput');
             const searchClear = document.getElementById('searchClear');
-            searchInput.addEventListener('input', (e) => {
+            searchInput.addEventListener('input', e => {
                 searchKeyword = e.target.value.trim();
                 searchClear.classList.toggle('show', searchKeyword.length > 0);
                 renderRecipes();
@@ -1520,9 +1596,10 @@
                 searchClear.classList.remove('show');
                 renderRecipes();
             });
+
             document.getElementById('modalClose').addEventListener('click', closeModal);
             document.getElementById('modalOverlay').addEventListener('click', closeModal);
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
         });
     </script>
 </body>
