@@ -1100,6 +1100,8 @@
         let isEngaged = false;
 
         // ============================================
+        let reviewToken = '';
+
         // ⭐ 별점 렌더 헬퍼
         // ============================================
         function renderStars(rating, total = 5) {
@@ -1483,6 +1485,9 @@
 
             // 리뷰 불러오기
             loadReviews(recipeId);
+
+            // ✅ 비밀 토큰 생성 (모달 열릴 때마다 새로 발급)
+            reviewToken = 'rp_' + new Date().getTime();
         }
 
         // ============================================
@@ -1566,7 +1571,8 @@
                     recipeId: recipeId,
                     nickname: nickname || '익명',
                     rating: ratingInput.value,
-                    content: content
+                    content: content,
+                    token: reviewToken  // ✅ 비밀 토큰 함께 전송
                 });
 
                 const response = await fetch(`${STATS_API_URL}?${params.toString()}`);
